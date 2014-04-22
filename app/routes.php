@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+Route::controller('/user', 'UserController');
+Route::controller('/bbs', 'BoardController');
+Route::controller('/admin', 'AdminController');
+Route::controller('/', 'HomeController');
