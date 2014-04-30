@@ -16,6 +16,8 @@ class CreatePermissions extends Migration {
 			$table->tinyInteger('user');
 			$table->tinyInteger('pages');
 			$table->tinyInteger('bbs');
+
+			$table->foreign('user_id')->references('id')->on('users');
 		});
 	}
 
