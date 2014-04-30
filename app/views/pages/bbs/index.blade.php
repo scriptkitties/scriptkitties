@@ -1,5 +1,6 @@
 @extends('layout')
 
 @section('main')
-We don't have a board
+{{ $nav }}
+This is the board index
 @stop
