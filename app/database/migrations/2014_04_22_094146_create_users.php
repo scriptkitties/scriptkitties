@@ -17,6 +17,8 @@ class CreateUsers extends Migration {
 			$table->string('password', 64);
 			$table->string('email', 255);
 			$table->string('website', 255);
+			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 
