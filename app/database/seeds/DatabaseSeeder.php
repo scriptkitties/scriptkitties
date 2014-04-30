@@ -7,11 +7,21 @@ class DatabaseSeeder extends Seeder {
 	 *
 	 * @return void
 	 */
-	public function run()
-	{
+	public function run() {
 		Eloquent::unguard();
 
-		// $this->call('UserTableSeeder');
+		$this->call('UserTableSeeder');
 	}
 
+}
+
+class UserTableSeeder extends Seeder {
+	public function run() {
+		DB::table('users')->insert([
+			'nickname' => 'root',
+			'password' => Hash::make('password'),
+			'email'    => 'root@localhost',
+			'website'  => 'localhost'
+		]);
+	}
 }
