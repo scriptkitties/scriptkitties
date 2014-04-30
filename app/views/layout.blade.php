@@ -13,9 +13,13 @@
 		<nav>
 			<ul>
 				<li>{{ link_to('about', 'About') }}</li>
+				@if(Auth::check())
 				<li>{{ link_to('bbs', 'BBS') }}</li>
 				<li>{{ link_to('irc', 'IRC') }}</li>
+				<li>{{ link_to('user/logout', 'Logout') }}</li>
+				@else
 				<li>{{ link_to('user/login', 'Login') }}</li>
+				@endif
 			</ul>
 		</nav>
 		<main>
