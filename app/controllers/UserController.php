@@ -8,6 +8,10 @@ class UserController extends BaseController {
 		return $this->getLogin();
 	}
 
+	public function getControl() {
+		return View::make('pages.user.control');
+	}
+
 	public function getLogin() {
 		return View::make('pages.auth.loginform');
 	}

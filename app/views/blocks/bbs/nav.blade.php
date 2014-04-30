@@ -1,11 +1,11 @@
-@section('bbs-nav')
+@section('subnav')
 <nav id="bbs-nav">
-[
-	@if(count($boards) > 0)
-	@foreach($boards as $board)
-	{{ link_to('/bbs/board/'.$board->name, '/'.$board->name.'/') }}
-	@endforeach
-	@endif
-]
+	<ul>
+		@if(count($boards) > 0)
+		@foreach($boards as $board)
+		<li>{{ link_to('/bbs/board/'.$board->name, $board->name) }}</li>
+		@endforeach
+		@endif
+	</ul>
 </nav>
 @show

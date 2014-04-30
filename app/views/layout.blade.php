@@ -5,23 +5,28 @@
 		<title>Scriptkitties</title>
 		{{ HTML::style('css/normalize.css') }}
 		{{ HTML::style('css/foundation.min.css') }}
+		{{ HTML::style('css/style.css') }}
 	</head>
 	<body>
 		<header>
 			[ AWESOME LOGO ]
 		</header>
-		<nav>
+		@section('nav')
+		<nav id="nav">
 			<ul>
-				<li>{{ link_to('about', 'About') }}</li>
+				<li id="nav-li-about">{{ link_to('about', 'About') }}</li>
 				@if(Auth::check())
-				<li>{{ link_to('bbs', 'BBS') }}</li>
-				<li>{{ link_to('irc', 'IRC') }}</li>
+				<li id="nav-li-bbs">{{ link_to('bbs', 'BBS') }}</li>
+				<li id="nav-li-irc">{{ link_to('irc', 'IRC') }}</li>
+				<li id="nav-li-user">{{ link_to('user/control', 'User Control Panel') }}</li>
 				<li>{{ link_to('user/logout', 'Logout') }}</li>
 				@else
-				<li>{{ link_to('user/login', 'Login') }}</li>
+				<li id="nav-li-user">{{ link_to('user/login', 'Login') }}</li>
 				@endif
 			</ul>
 		</nav>
+		@yield('subnav')
+		@show
 		<main>
 			@yield('main')
 		</main>
@@ -29,7 +34,12 @@
 			&copy; {{ date('Y') }} - Scriptkitties
 		</footer>
 		@section('script')
-		{{ HTML::script('foundation.min.js') }}
+		{{ HTML::script('js/vendor/jquery.js') }}
+		{{ HTML::script('js/foundation.min.js') }}
+		<script>
+			// I R jQuery proz
+			$("#nav-li-{{Request::segment(1)}}").addClass("active");
+		</script>
 		@show
 	</body>
 </html>

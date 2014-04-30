@@ -1,5 +1,5 @@
 <?php
 
 class BbsBoard extends Eloquent {
-	protected $table = 'bbs_boards';
+	protected $table      = 'bbs_boards';
 }
