@@ -78,3 +78,12 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+// {{{ Admin filters
+Route::filter('admin-bbs', function() {
+	if(!Auth::check()) { App::abort(401); }
+	if(!Auth::user()->hasPermission('admin-bbs', 'a')) { App::abort(403); }
+
+	return true;
+});
+// }}}
