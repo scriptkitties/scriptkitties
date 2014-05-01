@@ -1,32 +1,48 @@
+@section('nav')
+<nav class="navbar navbar-default">
+	<ul class="nav navbar-nav">
+		<li id="nav-li-about">{{ link_to('about', 'About') }}</li>
+		@if(Auth::check())
+		@if(Auth::user()->hasPermission('bbs', 'r'))
+		<li id="nav-li-bbs" class="dropdown">
+			{{ link_to('#', 'BBS', ['class' => 'dropdown-toggle', 'data-toggle' => 'dropdown']) }}
+			@if(count($bbsBoards) > 0)
+			<ul class="dropdown-menu">
+			@foreach($bbsBoards as $bbsBoard)
+				<li>{{ link_to('bbs/board/'.$bbsBoard->name, '/'.$bbsBoard->name.'/') }}</li>
+			@endforeach
+			</ul>
+			@endif
+		</li>
+		@endif
+		<li id="nav-li-irc">{{ link_to('irc', 'IRC') }}</li>
+		<li id="nav-li-user">{{ link_to('user/control', 'User Control Panel') }}</li>
+		<li>{{ link_to('user/logout', 'Logout') }}</li>
+		@else
+		<li id="nav-li-user">{{ link_to('user/login', 'Login') }}</li>
+		@endif
+	</ul>
+</nav>
+@stop
+
+@section('html')
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Scriptkitties</title>
+		@section('style')
 		{{ HTML::style('css/normalize.css') }}
-		{{ HTML::style('css/foundation.min.css') }}
-		{{ HTML::style('css/style.css') }}
+		{{ HTML::style('css/bootstrap.min.css') }}
+		{{ HTML::style('css/bootstrap-theme.min.css') }}
+		@show
 	</head>
 	<body>
 		<header>
 			[ AWESOME LOGO ]
 		</header>
-		@section('nav')
-		<nav id="nav">
-			<ul>
-				<li id="nav-li-about">{{ link_to('about', 'About') }}</li>
-				@if(Auth::check())
-				<li id="nav-li-bbs">{{ link_to('bbs', 'BBS') }}</li>
-				<li id="nav-li-irc">{{ link_to('irc', 'IRC') }}</li>
-				<li id="nav-li-user">{{ link_to('user/control', 'User Control Panel') }}</li>
-				<li>{{ link_to('user/logout', 'Logout') }}</li>
-				@else
-				<li id="nav-li-user">{{ link_to('user/login', 'Login') }}</li>
-				@endif
-			</ul>
-		</nav>
-		@yield('subnav')
-		@show
+		@yield('nav')
 		<main>
 			@yield('main')
 		</main>
@@ -35,7 +51,7 @@
 		</footer>
 		@section('script')
 		{{ HTML::script('js/vendor/jquery.js') }}
-		{{ HTML::script('js/foundation.min.js') }}
+		{{ HTML::script('js/bootstrap.min.js') }}
 		<script>
 			// I R jQuery proz
 			$("#nav-li-{{Request::segment(1)}}").addClass("active");
@@ -43,3 +59,4 @@
 		@show
 	</body>
 </html>
+@show

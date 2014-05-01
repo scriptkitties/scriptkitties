@@ -15,7 +15,10 @@
 View::composer('blocks.bbs.nav', function($view) {
 	$view->with('boards', BbsBoard::orderBy('name')->get());
 });
+// Define composers
+View::composer('layout', 'MainComposer');
 
+// Define actual routing
 Route::controller('/user', 'UserController');
 Route::controller('/bbs', 'BoardController');
 Route::controller('/admin', 'AdminController');
