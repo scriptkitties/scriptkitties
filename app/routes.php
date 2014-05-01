@@ -11,10 +11,6 @@
 |
 */
 
-// Maybe we should actually do this somewhere else, but for now this will do
-View::composer('blocks.bbs.nav', function($view) {
-	$view->with('boards', BbsBoard::orderBy('name')->get());
-});
 // Define composers
 View::composer('layout', 'MainComposer');
 
