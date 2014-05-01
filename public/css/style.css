@@ -6,3 +6,7 @@ header#header {
 footer#footer {
 	text-align: center;
 }
+
+.greentext {
+	color: green;
+}

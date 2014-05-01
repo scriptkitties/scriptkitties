@@ -1,5 +1,52 @@
 <?php
 
 class AdminBbsController extends BaseController {
-	public function getIndex() { }
+
+	public function getCreate() {
+		return View::make('pages.bbs.createboard');
+	}
+
+	public function getDelete($board = 0) {
+		if($board > 0) {
+			return $this->postDelete($board);
+		}
+
+		return View::make('pages.bbs.deleteboard', [
+			'boards' => BbsBoard::all()
+		]);
+	}
+
+	public function postCreate() {
+		$rules = [
+			'name' => 'required',
+			'description' => 'required'
+		];
+
+		$validator = Validator::make(Input::all(), $rules);
+
+		if($validator->fails()) {
+			return Redirect::to('admin/bbs/create');
+		}
+
+		$board              = new BbsBoard();
+		$board->name        = Input::get('name');
+		$board->description = Input::get('description');
+
+		$board->save();
+
+		return Redirect::to('bbs/board/'.Input::get('name'));
+	}
+
+	public function postDelete($board = 0) {
+		$board = BbsBoard::find($board);
+
+		if($board == null || $board->deleted_at != null) {
+			App::abort(404);
+		}
+
+		$board->delete();
+
+		return Redirect::to('admin/bbs/delete');
+	}
+
 }
