@@ -19,7 +19,7 @@
 			@endif
 			</div>
 			<section class="col-md-9">
-				<p>{{ $post->content }}</p>
+				<p>{{ $post->htmlSafeContent() }}</p>
 			</div>
 		</div>
 		<footer>

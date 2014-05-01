@@ -17,7 +17,7 @@
 		@endif
 		</div>
 		<section class="col-md-9">
-			<p>{{ $post->content }}</p>
+			<p>{{ $post->htmlSafeContent() }}</p>
 		</div>
 	</div>
 </article>
@@ -39,7 +39,7 @@
 		@endif
 		</div>
 		<section class="col-md-9">
-			<p>{{ $reply->content }}</p>
+			<p>{{ $reply->htmlSafeContent() }}</p>
 		</div>
 	</div>
 </article>

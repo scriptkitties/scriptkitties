@@ -40,7 +40,7 @@ class BoardController extends BaseController {
 	}
 
 	public function getPost($post = 0) {
-		$post    = BbsPost::find($post);
+		$post = BbsPost::find($post);
 
 		if($post == null) {
 			App::abort(404);
@@ -50,6 +50,38 @@ class BoardController extends BaseController {
 			'post'    => $post,
 			'replies' => $post->replies()
 		]);
+	}
+
+	public function postPost($post = 0) {
+		$post = BbsPost::find($post);
+
+		if($post == null) {
+			App::abort(404);
+		}
+
+		$rules = [
+		];
+
+		$validator = Validator::make(Input::all(), $rules);
+
+		if($validator->fails()) {
+			// Return the form with some errors
+			return Redirect::to('bbs/post/'.$post->id);
+		}
+
+		// Create the reply
+		$reply = new BbsPost();
+		$reply->board_id  = $post->board_id;
+		$reply->parent_id = $post->id;
+		$reply->author    = Auth::user()->id;
+		$reply->content   = Input::get('content');;
+
+		// @todo: file uploads
+
+		// Save the reply
+		$reply->save();
+
+		return Redirect::to('bbs/post/'.$post->id);
 	}
 
 }
