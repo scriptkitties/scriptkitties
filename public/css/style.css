@@ -1,77 +1,8 @@
-/*
- * Monokai colors:
- * 272822 gray
- * f92672 red
- * 66d9ef blue
- * a6e22e green
- * fd971f orange
- */
-
-html, body {
-	background-color: #272822;
-	color: #e6db74;
-}
-
-header {
+header#header {
 	text-align: center;
 	margin-bottom: 5px;
 }
 
-nav ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
+footer#footer {
 	text-align: center;
-}
-
-nav ul li {
-	display: inline;
-}
-
-main {
-	margin: 15px;
-}
-
-footer {
-	text-align: center;
-}
-
-a {
-	color: #66d9ef;
-}
-
-#nav {
-	background-color: #a6e22e;
-}
-#nav a {
-	color: #000000;
-	padding: 4px;
-}
-#nav li.active, #nav li.active a {
-	color: #a6e22e;
-	background-color: #000;
-}
-
-#bbs-nav, #bbs-nav a {
-	background-color: #000;
-	color: #a6e22e;
-}
-#bbs-nav li:before, #bbs-nav li:after {
-	content: " / ";
-}
-
-.bbs-post {
-	padding: 0 8px;
-	overflow: hidden;
-}
-.bbs-post header {
-	text-align: left;
-}
-.bbs-post .bbs-image {
-	width: 128px;
-	height: 128px;
-	float: left;
-}
-.bbs-post p {
-	float: left;
 }

@@ -11,7 +11,7 @@ class BoardController extends BaseController {
 
 		return View::make('pages.bbs.index', [
 			'posts' => $posts
-		])->nest('nav', 'blocks.bbs.nav');
+		]);
 	}
 
 	public function getBoard($board = '', $page = 0) {
@@ -36,11 +36,15 @@ class BoardController extends BaseController {
 
 		return View::make('pages.bbs.board', [
 			'posts' => $posts
-		])->nest('nav', 'blocks.bbs.nav');
+		]);
 	}
 
 	public function getPost($post = 0) {
 		$post    = BbsPost::find($post);
+
+		if($post == null) {
+			App::abort(404);
+		}
 
 		return View::make('pages.bbs.post', [
 			'post'    => $post,

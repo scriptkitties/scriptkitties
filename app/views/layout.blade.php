@@ -36,17 +36,18 @@
 		{{ HTML::style('css/normalize.css') }}
 		{{ HTML::style('css/bootstrap.min.css') }}
 		{{ HTML::style('css/bootstrap-theme.min.css') }}
+		{{ HTML::style('css/style.css') }}
 		@show
 	</head>
 	<body>
-		<header>
+		<header id="header">
 			[ AWESOME LOGO ]
 		</header>
 		@yield('nav')
 		<main>
 			@yield('main')
 		</main>
-		<footer>
+		<footer id="footer">
 			&copy; {{ date('Y') }} - Scriptkitties
 		</footer>
 		@section('script')
