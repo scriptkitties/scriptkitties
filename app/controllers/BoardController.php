@@ -15,10 +15,6 @@ class BoardController extends BaseController {
 	}
 
 	public function getBoard($board = '', $page = 0) {
-		if($board == '') {
-			App::abort(404);
-		}
-
 		$board = BbsBoard::where('name', '=', $board)->get();
 
 		if(count($board) != 1 || $board[0] == null) {
@@ -29,7 +25,7 @@ class BoardController extends BaseController {
 
 		$posts = BbsPost::where('parent_id', '=', null)
 			->where('board_id', '=', $board->id)
-			->orderBy('created_at')
+			->orderBy('created_at', 'desc')
 			->skip($page * $this->postsPerPage)
 			->take($this->postsPerPage)
 			->get();
@@ -50,6 +46,37 @@ class BoardController extends BaseController {
 			'post'    => $post,
 			'replies' => $post->replies()
 		]);
+	}
+
+	public function postBoard($board = '') {
+		$board = BbsBoard::where('name', '=', $board)->get();
+
+		if(count($board) != 1 || $board[0] == null) {
+			App::abort(404);
+		}
+
+		$board = $board[0];
+		$rules = [
+		];
+
+		$validator = Validator::make(Input::all(), $rules);
+
+		if($validator->fails()) {
+			return Redirect::to('bbs/board/'.$board->name);
+		}
+
+		// Create the post
+		$post = new BbsPost();
+		$post->board_id = $board->id;
+		$post->author   = Auth::user()->id;
+		$post->content  = Input::get('content');
+
+		// @todo: file uploads
+
+		// Save the post into the database
+		$post->save();
+
+		return Redirect::to('bbs/post/'.$post->id);
 	}
 
 	public function postPost($post = 0) {

@@ -30,4 +30,30 @@
 @else
 {{ trans('bbs.board.empty') }}
 @endif
+<hr>
+{{ Form::open() }}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					{{ Form::label('content', trans('bbs.new.title')) }}
+					{{ Form::textarea('content', null, ['class' => 'form-control']) }}
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-9">
+				<div class="form-group">
+					{{ Form::label('file', trans('bbs.new.image')) }}
+					{{ Form::file('file') }}
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="form-group">
+					{{ Form::submit(trans('bbs.new.submit'), ['class' => 'btn btn-default pull-right']) }}
+				</div>
+			</div>
+		</div>
+	</div>
+{{ Form::close() }}
 @stop
