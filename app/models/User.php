@@ -47,6 +47,38 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	/**
+	 * Check if a user has a certain permission.
+	 *
+	 * @return bool
+	 */
+	public function hasPermission($perm, $level) {
+		$value = DB::table('permissions')->where('user_id', '=', $this->id)->pluck($perm);
+
+		if($value == null) {
+			return false;
+		}
+
+		switch($level) {
+			case 'r':
+			case 'read':
+				$bit = 2;
+				break;
+			case 'w':
+			case 'write':
+				$bit = 1;
+				break;
+			case 'a':
+			case 'admin':
+				$bit = 0;
+				break;
+			default:
+				return false;
+		}
+
+		return (($value >> $bit) & 1) == 1;
+	}
+
+	/**
 	 * Set the token value for the "remember me" session.
 	 *
 	 * @param  string  $value

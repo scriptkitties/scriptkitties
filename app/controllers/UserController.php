@@ -9,7 +9,9 @@ class UserController extends BaseController {
 	}
 
 	public function getControl() {
-		return View::make('pages.user.control');
+		return View::make('pages.user.control', [
+			'user' => Auth::user()
+		]);
 	}
 
 	public function getLogin() {
