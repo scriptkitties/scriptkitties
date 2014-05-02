@@ -17,18 +17,20 @@ View::composer('layout', 'MainComposer');
 // Member-only routes
 Route::group(['before' => 'auth'], function() {
 	Route::group(['prefix' => 'admin'], function() {
-		//Route::controller('user', 'AdminUserController', ['before', 'user-admin']);
-		//Route::controller('pages', 'AdminPageController', ['before', 'page-admin']);
-		Route::controller('bbs', 'AdminBbsController', ['before', 'bbs-admin']);
+		Route::controller('user', 'AdminUserController', ['before', 'admin-user']);
+		//Route::controller('pages', 'AdminPageController', ['before', 'admin-pages']);
+		Route::controller('bbs', 'AdminBbsController', ['before', 'admin-bbs']);
 	});
 
 	Route::controller('user', 'UserController');
 	Route::controller('bbs', 'BoardController');
 });
 
-// Authentication routes
-Route::get('login', 'UserController@getLogin');
-Route::post('login', 'UserController@postLogin');
+// Authentication routes, only for guests
+Route::group(['before' => 'guest'], function() {
+	Route::get('login', 'UserController@getLogin');
+	Route::post('login', 'UserController@postLogin');
+});
 
 // Public routes
 Route::controller('/', 'HomeController');

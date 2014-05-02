@@ -1,28 +1,69 @@
 @section('nav')
-<nav class="navbar navbar-default">
-	<ul class="nav navbar-nav">
-		<li id="nav-li-about">{{ link_to('about', 'About') }}</li>
-		@if(Auth::check())
-		@if(Auth::user()->hasPermission('bbs', 'r'))
-		<li id="nav-li-bbs" class="dropdown">
-			{{ link_to('#', 'BBS', ['class' => 'dropdown-toggle', 'data-toggle' => 'dropdown']) }}
-			@if(count($bbsBoards) > 0)
-			<ul class="dropdown-menu">
-			@foreach($bbsBoards as $bbsBoard)
-				<li>{{ link_to('bbs/board/'.$bbsBoard->name, '/'.$bbsBoard->name.'/') }}</li>
-			@endforeach
-			</ul>
-			@endif
-		</li>
-		@endif
-		<li id="nav-li-irc">{{ link_to('irc', 'IRC') }}</li>
-		<li id="nav-li-user">{{ link_to('user/control', 'User Control Panel') }}</li>
-		<li>{{ link_to('user/logout', 'Logout') }}</li>
-		@else
-		<li id="nav-li-user">{{ link_to('user/login', 'Login') }}</li>
-		@endif
-	</ul>
-</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<nav class="navbar navbar-default">
+				<ul class="nav navbar-nav">
+					<li id="nav-li-about">{{ link_to('about', 'About') }}</li>
+					@if(Auth::check())
+					@if(Auth::user()->hasPermission('bbs', 'r'))
+					<li id="nav-li-bbs" class="dropdown">
+						{{ link_to('#', 'BBS', ['class' => 'dropdown-toggle', 'data-toggle' => 'dropdown']) }}
+						@if(count($bbsBoards) > 0)
+						<ul class="dropdown-menu">
+						@foreach($bbsBoards as $bbsBoard)
+							<li>{{ link_to('bbs/board/'.$bbsBoard->name, '/'.$bbsBoard->name.'/') }}</li>
+						@endforeach
+						</ul>
+						@endif
+					</li>
+					@endif
+					<li id="nav-li-irc">{{ link_to('irc', 'IRC') }}</li>
+					<li id="nav-li-user">{{ link_to('user/control', 'User Control Panel') }}</li>
+					<li>{{ link_to('user/logout', 'Logout') }}</li>
+					@else
+					<li id="nav-li-user">{{ link_to('login', 'Login') }}</li>
+					@endif
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+@stop
+
+@section('alert')
+@if(count($errors) > 0)
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<strong>Validation error!</strong>
+				<ul>
+					@foreach($errors->all() as $error)
+						<li>{{$error}}</li>
+					@endforeach
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+@endif
+@foreach(['success', 'info', 'warning', 'danger'] as $alert)
+@if(Session::get('alert-'.$alert))
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<div class="alert alert-{{$alert}} alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<strong>{{ucfirst($alert)}}!</strong>
+				<p>{{Session::get('alert-'.$alert)}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+@endif
+@endforeach
 @stop
 
 @section('html')
@@ -44,6 +85,7 @@
 			[ AWESOME LOGO ]
 		</header>
 		@yield('nav')
+		@yield('alert')
 		<main>
 			@yield('main')
 		</main>
