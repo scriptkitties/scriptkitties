@@ -23,7 +23,7 @@ class CreateBoards extends Migration {
 			$table->increments('id');
 			$table->integer('board_id')->unsigned();
 			$table->integer('parent_id')->unsigned()->nullable();
-			$table->integer('author');
+			$table->integer('author')->nullable();
 			$table->string('file', 64)->nullable();
 			$table->text('content');
 			$table->timestamps();

@@ -1,6 +1,7 @@
 <?php
 
 return [
+	'anonify'       => 'Post as Anonymous',
 	'bbs.created'   => 'Board /:name/ has been created.',
 	'bbs.deleted'   => 'Board /:name/ has been deleted.',
 	'bbs.empty'     => 'There are no boards to post in.',

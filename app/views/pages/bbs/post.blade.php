@@ -3,11 +3,19 @@
 @section('main')
 <article class="container-fluid">
 	<header>
-			{{ trans('bbs.post.header', [
-				'name' => link_to('user/profile/'.$post->author, User::find($post->author)->nickname),
-				'id' => link_to('bbs/post/'.$post->id, $post->id),
-				'date' => $post->created_at
-			]) }}
+		@if($post->author == null)
+		{{ trans('bbs.post.header', [
+			'name' => 'Anonymous',
+			'id' => link_to('bbs/post/'.$post->id, $post->id),
+			'date' => $post->created_at
+		]) }}
+		@else
+		{{ trans('bbs.post.header', [
+			'name' => link_to('user/profile/'.$post->author, User::find($post->author)->nickname),
+			'id' => link_to('bbs/post/'.$post->id, $post->id),
+			'date' => $post->created_at
+		]) }}
+		@endif
 	</header>
 	<div class="row">
 		<div class="col-md-3">
@@ -25,11 +33,19 @@
 @foreach($replies as $reply)
 <article class="container-fluid">
 	<header>
-			{{ trans('bbs.post.header', [
-				'name' => link_to('user/profile/'.$reply->author, User::find($reply->author)->nickname),
-				'id' => link_to('bbs/post/'.$reply->id, $reply->id),
-				'date' => $reply->created_at
-			]) }}
+		@if($reply->author == null)
+		{{ trans('bbs.post.header', [
+			'name' => 'Anonymous',
+			'id' => link_to('bbs/post/'.$reply->id, $reply->id),
+			'date' => $reply->created_at
+		]) }}
+		@else
+		{{ trans('bbs.post.header', [
+			'name' => link_to('user/profile/'.$reply->author, User::find($reply->author)->nickname),
+			'id' => link_to('bbs/post/'.$reply->id, $reply->id),
+			'date' => $reply->created_at
+		]) }}
+		@endif
 	</header>
 	<div class="row">
 		<div class="col-md-3">
@@ -57,13 +73,23 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-sm-9">
+			<div class="col-sm-7">
 				<div class="form-group">
 					{{ Form::label('file', trans('bbs.reply.image')) }}
 					{{ Form::file('file') }}
 				</div>
 			</div>
 			<div class="col-sm-3">
+				<div class="form-group">
+					<div class="checkbox">
+						<label>
+							{{ trans('bbs.anonify') }}
+							{{ Form::checkbox('anonify', '1', false) }}
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
 				<div class="form-group">
 					{{ Form::submit(trans('bbs.reply.submit'), ['class' => 'btn btn-default pull-right']) }}
 				</div>

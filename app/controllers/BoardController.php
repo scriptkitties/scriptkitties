@@ -57,7 +57,6 @@ class BoardController extends BaseController {
 
 		$board = $board[0];
 		$rules = [
-			
 		];
 
 		$validator = Validator::make(Input::all(), $rules);
@@ -69,7 +68,7 @@ class BoardController extends BaseController {
 		// Create the post
 		$post = new BbsPost();
 		$post->board_id = $board->id;
-		$post->author   = Auth::user()->id;
+		$post->author   = (Input::get('anonify') == '1' ? null : Auth::user()->id);
 		$post->content  = Input::get('content');
 
 		// @todo: file uploads
@@ -101,7 +100,7 @@ class BoardController extends BaseController {
 		$reply = new BbsPost();
 		$reply->board_id  = $post->board_id;
 		$reply->parent_id = $post->id;
-		$reply->author    = Auth::user()->id;
+		$reply->author    = (Input::get('anonify') == '1' ? null : Auth::user()->id);
 		$reply->content   = Input::get('content');;
 
 		// @todo: file uploads

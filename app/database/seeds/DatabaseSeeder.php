@@ -16,43 +16,50 @@ class DatabaseSeeder extends Seeder {
 
 }
 
-class UserTableSeeder extends Seeder {
+class BbsTableSeeder extends Seeder {
 	public function run() {
-		DB::table('users')->insert([
-			'nickname' => 'root',
-			'password' => Hash::make('password'),
-			'email'    => 'root@localhost',
-			'website'  => 'localhost',
+		$board = DB::table('bbs_boards')->insertGetId([
+			'name'        => 't',
+			'description' => 'This is a testboard.',
+			'created_at'  => date('Y-m-d H:i:s'),
+			'updated_at'  => date('Y-m-d H:i:s')
+		]);
+		$parent = DB::table('bbs_posts')->insertGetId([
+			'board_id'   => $board,
+			'parent_id'  => null,
+			'author'     => 1,
+			'file'       => null,
+			'content'    => 'This is a testpost.',
+			'created_at' => date('Y-m-d H:i:s'),
+			'updated_at' => date('Y-m-d H:i:s')
+		]);
+		DB::table('bbs_posts')->insert([
+			'board_id'   => $board,
+			'parent_id'  => $parent,
+			'author'     => 1,
+			'content'    => 'This is a reply to post #'.$parent.'.',
 			'created_at' => date('Y-m-d H:i:s'),
 			'updated_at' => date('Y-m-d H:i:s')
 		]);
 	}
 }
 
-class BbsTableSeeder extends Seeder {
+class UserTableSeeder extends Seeder {
 	public function run() {
-		$board = DB::table('bbs_boards')->insertGetId([
-			'name'        => 't',
-			'description' => 'This is a testboard.',
+		$id = DB::table('users')->insertGetId([
+			'nickname'   => 'root',
+			'password'   => Hash::make('password'),
+			'email'      => 'root@localhost',
+			'website'    => 'localhost',
 			'created_at' => date('Y-m-d H:i:s'),
 			'updated_at' => date('Y-m-d H:i:s')
 		]);
-		$parent = DB::table('bbs_posts')->insertGetId([
-			'board_id'  => $board,
-			'parent_id' => null,
-			'author'    => 1,
-			'file'      => null,
-			'content'   => 'This is a testpost.',
-			'created_at' => date('Y-m-d H:i:s'),
-			'updated_at' => date('Y-m-d H:i:s')
-		]);
-		DB::table('bbs_posts')->insert([
-			'board_id'  => $board,
-			'parent_id' => $parent,
-			'author'    => 1,
-			'content'   => 'This is a reply to post #'.$parent.'.',
-			'created_at' => date('Y-m-d H:i:s'),
-			'updated_at' => date('Y-m-d H:i:s')
+		DB::table('permissions')->insert([
+			'user_id' => $id,
+			'bbs'     => 7,
+			'pages'   => 7,
+			'user'    => 7
 		]);
 	}
 }
+
