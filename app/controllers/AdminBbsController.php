@@ -25,7 +25,7 @@ class AdminBbsController extends BaseController {
 		$validator = Validator::make(Input::all(), $rules);
 
 		if($validator->fails()) {
-			return Redirect::to('admin/bbs/create');
+			return Redirect::to('admin/bbs/create')->withErrors($validator);
 		}
 
 		$board              = new BbsBoard();
@@ -34,7 +34,9 @@ class AdminBbsController extends BaseController {
 
 		$board->save();
 
-		return Redirect::to('bbs/board/'.Input::get('name'));
+		return Redirect::to('bbs/board/'.Input::get('name'))->with('alert-success', trans('bbs.bbs.created', [
+			'name' => $board->name
+		]));
 	}
 
 	public function postDelete($board = 0) {
@@ -46,7 +48,9 @@ class AdminBbsController extends BaseController {
 
 		$board->delete();
 
-		return Redirect::to('admin/bbs/delete');
+		return Redirect::to('admin/bbs/delete')->with('alert-success', trans('bbs.bbs.deleted', [
+			'name' => $board->name
+		]));;
 	}
 
 }

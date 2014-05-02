@@ -57,12 +57,13 @@ class BoardController extends BaseController {
 
 		$board = $board[0];
 		$rules = [
+			
 		];
 
 		$validator = Validator::make(Input::all(), $rules);
 
 		if($validator->fails()) {
-			return Redirect::to('bbs/board/'.$board->name);
+			return Redirect::to('bbs/board/'.$board->name)->withErrors($validator);
 		}
 
 		// Create the post
@@ -93,7 +94,7 @@ class BoardController extends BaseController {
 
 		if($validator->fails()) {
 			// Return the form with some errors
-			return Redirect::to('bbs/post/'.$post->id);
+			return Redirect::to('bbs/post/'.$post->id)->withErrors($validator);
 		}
 
 		// Create the reply
@@ -108,7 +109,9 @@ class BoardController extends BaseController {
 		// Save the reply
 		$reply->save();
 
-		return Redirect::to('bbs/post/'.$post->id);
+		return Redirect::to('bbs/post/'.$post->id)->with('alert-success', trans('bbs.reply.success', [
+			'id' => $reply->id
+		]));
 	}
 
 }
