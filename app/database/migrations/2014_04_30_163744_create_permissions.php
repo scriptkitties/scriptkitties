@@ -13,9 +13,9 @@ class CreatePermissions extends Migration {
 	public function up() {
 		Schema::create('permissions', function($table) {
 			$table->integer('user_id')->unsigned();
-			$table->tinyInteger('user');
-			$table->tinyInteger('pages');
-			$table->tinyInteger('bbs');
+			$table->tinyInteger('user')->default(0);
+			$table->tinyInteger('pages')->default(0);
+			$table->tinyInteger('bbs')->default(0);
 
 			$table->foreign('user_id')->references('id')->on('users');
 		});

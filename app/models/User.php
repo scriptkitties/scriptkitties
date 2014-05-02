@@ -106,4 +106,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->email;
 	}
 
+	public function setPermission($perm, $value) {
+		return DB::table('permissions')->where('user_id', '=', $this->id)->update([$perm => $value]);
+	}
+
 }
