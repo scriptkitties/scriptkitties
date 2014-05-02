@@ -34,7 +34,7 @@ class UserController extends BaseController {
 
 		if($validator->fails()) {
 			// Return the form with some errors
-			return View::make('pages.auth.loginform');
+			return View::make('pages.auth.loginform')->withErrors($validator);
 		}
 
 		// Should this session be remembered?
@@ -49,11 +49,11 @@ class UserController extends BaseController {
 		// Attempt to log the user in
 		if(Auth::attempt($creds, $remember)) {
 			// Return the user to the original page
-			return Redirect::intended('/')->with('msg-success', Lang::get('auth.success'));
+			return Redirect::intended('user/control')->with('alert-success', trans('auth.success'));
 		}
 
 		// Return an error to the user
-		return Redirect::to('/user/login')->withErrors(new MessageBag([Lang::get('auth.error.creds')]));
+		return Redirect::to('login')->withErrors(new MessageBag([trans('auth.error.creds')]));
 	}
 
 }
