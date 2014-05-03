@@ -84,7 +84,7 @@
 					<div class="checkbox">
 						<label>
 							{{ trans('bbs.anonify') }}
-							{{ Form::checkbox('anonify', '1', false) }}
+							{{ Form::checkbox('anonify', '1', Auth::user()->preferences->anonymize) }}
 						</label>
 					</div>
 				</div>

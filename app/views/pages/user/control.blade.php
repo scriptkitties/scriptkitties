@@ -35,11 +35,14 @@
 		<div class="col-md-10">
 			<div class="tab-content">
 				<div id="profile" class="tab-pane active">
-					Maybe you wanna change yo password?
+					<ul>
+						<li>{{ link_to('user/edit', 'Edit your own account settings') }}</li>
+					</ul>
 				</div>
 				@if($user->hasPermission('user', 'a'))
 				<div id="user-admin" class="tab-pane">
 					<ul>
+						<li>{{ link_to('admin/user/list', 'List all current users') }}</li>
 						<li>{{ link_to('admin/user/create', 'Create a new user') }}</li>
 						<li>{{ link_to('admin/user/edit', 'Modify a user\'s permissions') }}</li>
 						<li>{{ link_to('admin/user/delete', 'Delete a user') }}</li>

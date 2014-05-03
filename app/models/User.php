@@ -110,4 +110,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return DB::table('permissions')->where('user_id', '=', $this->id)->update([$perm => $value]);
 	}
 
+	public function preferences() {
+		return $this->hasOne('UserPreferences');
+	}
+
 }
