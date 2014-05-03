@@ -12,7 +12,7 @@ class CreatePreferences extends Migration {
 	 */
 	public function up() {
 		Schema::create('preferences', function($table) {
-			$table->inrements('id');
+			$table->increments('id');
 			$table->integer('user_id')->unsigned()->unique();
 			$table->string('language', 2)->default('en');
 			$table->boolean('anonymize')->default(false);
