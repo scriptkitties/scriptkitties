@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('UserTableSeeder');
 		$this->call('BbsTableSeeder');
+		$this->call('PageSeeder');
 	}
 
 }
@@ -59,6 +60,23 @@ class UserTableSeeder extends Seeder {
 			'bbs'     => 7,
 			'pages'   => 7,
 			'user'    => 7
+		]);
+	}
+}
+
+class PageSeeder extends Seeder {
+	public function run() {
+		DB::table('pages')->insert([
+			'page'       => 'about',
+			'content'    => 'Placeholder',
+			'created_at' => date('Y-m-d H:i:s'),
+			'updated_at' => date('Y-m-d H:i:s')
+		]);
+		DB::table('pages')->insert([
+			'page'       => 'irc',
+			'content'    => 'Placeholder',
+			'created_at' => date('Y-m-d H:i:s'),
+			'updated_at' => date('Y-m-d H:i:s')
 		]);
 	}
 }

@@ -18,7 +18,7 @@ View::composer('layout', 'MainComposer');
 Route::group(['before' => 'auth'], function() {
 	Route::group(['prefix' => 'admin'], function() {
 		Route::controller('user', 'AdminUserController', ['before', 'admin-user']);
-		//Route::controller('pages', 'AdminPageController', ['before', 'admin-pages']);
+		Route::controller('pages', 'AdminPageController', ['before', 'admin-pages']);
 		Route::controller('bbs', 'AdminBbsController', ['before', 'admin-bbs']);
 	});
 

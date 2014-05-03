@@ -3,15 +3,19 @@
 class HomeController extends BaseController {
 
 	public function getIndex() {
-		return View::make('pages.home.about');
+		return $this->getAbout();
 	}
 
 	public function getAbout() {
-		return $this->getIndex();
+		return View::make('pages.default', [
+			'page' => Page::findByName('about')
+		]);
 	}
 
 	public function getIrc() {
-		return View::make('pages.home.irc');
+		return View::make('pages.default', [
+			'page' => Page::findByName('irc')
+		]);
 	}
 
 }
