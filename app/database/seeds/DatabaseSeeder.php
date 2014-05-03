@@ -56,10 +56,17 @@ class UserTableSeeder extends Seeder {
 			'updated_at' => date('Y-m-d H:i:s')
 		]);
 		DB::table('permissions')->insert([
-			'user_id' => $id,
-			'bbs'     => 7,
-			'pages'   => 7,
-			'user'    => 7
+			'user_id'    => $id,
+			'bbs'        => 7,
+			'pages'      => 7,
+			'user'       => 7,
+			'created_at' => date('Y-m-d H:i:s'),
+			'updated_at' => date('Y-m-d H:i:s')
+		]);
+		DB::table('preferences')->insert([
+			'user_id'    => $id,
+			'created_at' => date('Y-m-d H:i:s'),
+			'updated_at' => date('Y-m-d H:i:s')
 		]);
 	}
 }
