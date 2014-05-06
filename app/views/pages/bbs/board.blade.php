@@ -39,7 +39,9 @@
 			</div>
 		</div>
 		<footer>
-			{{ Lang::choice('bbs.post.footer', $post->replyCount(), ['count' => $post->replyCount()]) }}
+			{{ link_to('bbs/post/'.$post->id, Lang::choice('bbs.post.footer', $post->replyCount(), [
+				'count' => $post->replyCount()
+			])) }}
 		</footer>
 	</article>
 	@endforeach
