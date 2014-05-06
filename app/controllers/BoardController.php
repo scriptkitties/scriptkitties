@@ -57,6 +57,7 @@ class BoardController extends BaseController {
 
 		$board = $board[0];
 		$rules = [
+			'content' => 'required'
 		];
 
 		$validator = Validator::make(Input::all(), $rules);
@@ -71,7 +72,19 @@ class BoardController extends BaseController {
 		$post->author   = (Input::get('anonify') == '1' ? null : Auth::user()->id);
 		$post->content  = Input::get('content');
 
-		// @todo: file uploads
+		// Add the uploaded file if included
+		if(Input::hasFile('file')) {
+			// Get the original extension
+			$ext      = Input::file('file')->getClientOriginalExtension();
+			$filename = hash_file('sha256', Input::file('file')->getRealPath());
+
+			// Move the file
+			Input::file('file')->move(BbsPost::getUploadPath(),  $filename.'.'.$ext);
+
+			// Add the file to the reply
+			$post->file      = $filename;
+			$post->extension = $ext;
+		}
 
 		// Save the post into the database
 		$post->save();
@@ -86,8 +99,11 @@ class BoardController extends BaseController {
 			App::abort(404);
 		}
 
-		$rules = [
-		];
+		if(Input::get('content') == '') {
+			$rules = ['file' => 'required'];
+		} else {
+			$rules = ['content' => 'required'];
+		}
 
 		$validator = Validator::make(Input::all(), $rules);
 
@@ -101,9 +117,20 @@ class BoardController extends BaseController {
 		$reply->board_id  = $post->board_id;
 		$reply->parent_id = $post->id;
 		$reply->author    = (Input::get('anonify') == '1' ? null : Auth::user()->id);
-		$reply->content   = Input::get('content');;
+		$reply->content   = Input::get('content') == '' ? '' : Input::get('content');
 
-		// @todo: file uploads
+		if(Input::hasFile('file')) {
+			// Get the original extension
+			$ext      = Input::file('file')->getClientOriginalExtension();
+			$filename = hash_file('sha256', Input::file('file')->getRealPath());
+
+			// Move the file
+			Input::file('file')->move(BbsPost::getUploadPath(),  $filename.'.'.$ext);
+
+			// Add the file to the reply
+			$reply->file      = $filename;
+			$reply->extension = $ext;
+		}
 
 		// Save the reply
 		$reply->save();

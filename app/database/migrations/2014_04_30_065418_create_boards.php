@@ -25,6 +25,7 @@ class CreateBoards extends Migration {
 			$table->integer('parent_id')->unsigned()->nullable();
 			$table->integer('author')->nullable();
 			$table->string('file', 64)->nullable();
+			$table->string('extension', 16)->nullable();
 			$table->text('content');
 			$table->timestamps();
 			$table->softDeletes();

@@ -3,6 +3,19 @@
 class BbsPost extends Eloquent {
 	protected $table = 'bbs_posts';
 
+	public static function getUploadPath($asUri = false) {
+		if($asUri) {
+			$path  = URL::to('/');
+		} else {
+			$path  = base_path();
+			$path .= '/public';
+		}
+
+		$path .= '/img/bbs/';
+
+		return $path;
+	}
+
 	public function getParsed() {
 		$escape  = ['&', '<', '>', '\'', '"'];
 		$replace = ['&amp;', '&lt;', '&gt;', '&quot;', '&#39'];
@@ -19,6 +32,14 @@ class BbsPost extends Eloquent {
 
 		// Return the parsed string
 		return $string;
+	}
+
+	public function getUpload() {
+		if(isset($this->file)) {
+			return self::getUploadPath(true).$this->file.'.'.$this->extension;
+		}
+
+		return '';
 	}
 
 	public function replies() {
