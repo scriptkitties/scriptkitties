@@ -30,7 +30,7 @@
 			<div class="col-md-2">
 				@if(isset($post->file))
 				<a href="{{ URL::to('bbs/post/'.$post->id) }}">
-				<img src="{{ $post->getUpload() }}" alt="" style="width: 100%;">
+				<img class="bbs-img" src="{{ $post->getUpload() }}" alt="">
 				</a>
 				@endif
 			</div>
