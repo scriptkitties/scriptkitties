@@ -39,10 +39,18 @@ class AdminUserController extends BaseController {
 		$user->save();
 
 		// Create permissions for the user
-		DB::table('permissions')->insert(['user_id' => $user->id]);
+		DB::table('permissions')->insert([
+			'user_id'    => $user->id,
+			'created_at' => date('Y-m-d H:i:s'),
+			'updated_at' => date('Y-m-d H:i:s')
+		]);
 
 		// Create preferences for the user
-		DB::table('preferences')->insert(['user_id' => $user->id]);
+		DB::table('preferences')->insert([
+			'user_id' => $user->id,
+			'created_at' => date('Y-m-d H:i:s'),
+			'updated_at' => date('Y-m-d H:i:s')
+		]);
 
 		// Loop through all the permissions to set them
 		foreach(Input::get('perms') as $perm) {
