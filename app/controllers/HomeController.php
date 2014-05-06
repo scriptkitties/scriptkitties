@@ -8,13 +8,13 @@ class HomeController extends BaseController {
 
 	public function getAbout() {
 		return View::make('pages.default', [
-			'page' => Page::findByName('about')
+			'content' => Page::findByName('about')->getParsed()
 		]);
 	}
 
 	public function getIrc() {
 		return View::make('pages.default', [
-			'page' => Page::findByName('irc')
+			'content' => Page::findByName('irc')->getParsed()
 		]);
 	}
 
