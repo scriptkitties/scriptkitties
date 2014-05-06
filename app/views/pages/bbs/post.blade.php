@@ -27,7 +27,9 @@
 	<div class="row">
 		<div class="col-md-2">
 		@if(isset($post->file))
-			<img class="bbs-img" src="{{ $post->getUpload() }}" alt="">
+			<a href="{{ $post->getUpload() }}">
+				<img class="bbs-img" src="{{ $post->getUpload() }}" alt="">
+			</a>
 		@endif
 		</div>
 		<section class="col-md-10">
@@ -56,7 +58,9 @@
 	<div class="row">
 		<div class="col-md-2">
 			@if(isset($reply->file))
-			<img class="bbs-img" src="{{ $reply->getUpload() }}" alt="">
+			<a href="{{ $reply->getUpload() }}">
+				<img class="bbs-img" src="{{ $reply->getUpload() }}" alt="">
+			</a>
 			@endif
 		</div>
 		<section class="col-md-10">
