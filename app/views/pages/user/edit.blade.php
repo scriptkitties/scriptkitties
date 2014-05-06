@@ -27,6 +27,10 @@
 				<div class="tab-content">
 					<div id="edit-settings" class="tab-pane active">
 						<div class="form-group">
+							{{ Form::label('nickname', 'Nickname') }}
+							{{ FOrm::text('nickname', $user->nickname, ['class' => 'form-control']) }}
+						</div>
+						<div class="form-group">
 							{{ Form::label('email', 'Email address') }}
 							{{ Form::text('email', $user->email, ['class' => 'form-control']) }}
 						</div>

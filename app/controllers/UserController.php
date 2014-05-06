@@ -35,7 +35,7 @@ class UserController extends BaseController {
 			'password' => 'required'
 		];
 
-		if(Input::get('newpass') != '' || Input::get('newpass_verify')) {
+		if(Input::get('newpass') != '' || Input::get('newpass_confirm')) {
 			// @todo: use that fancy validator function to verify the password
 			$rules['newpass'] = 'required|confirmed';
 		}
@@ -55,6 +55,7 @@ class UserController extends BaseController {
 		}
 
 		// Update other user settings
+		$user->nickname = Input::get('nickname');
 		$user->email = Input::get('email');
 
 		// Update preferences
