@@ -20,13 +20,14 @@
 			@endif
 		</header>
 		<div class="row">
-			<div class="col-md-3">
-			@if(isset($post->file))
-				<img src="{{ $post->file }}" alt="">
-				<p>a</p>
-			@endif
+			<div class="col-md-2">
+				@if(isset($post->file))
+				<a href="{{ URL::to('bbs/post/'.$post->id) }}">
+				<img src="{{ $post->getUpload() }}" alt="" style="width: 100%;">
+				</a>
+				@endif
 			</div>
-			<section class="col-md-9">
+			<section class="col-md-10">
 				<p>{{ $post->getParsed() }}</p>
 			</div>
 		</div>
@@ -39,7 +40,7 @@
 {{ trans('bbs.board.empty') }}
 @endif
 <hr>
-{{ Form::open() }}
+{{ Form::open(['files' => true]) }}
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
