@@ -70,6 +70,7 @@
 </article>
 @endforeach
 @endif
+@if(Auth::check())
 <hr>
 {{ Form::open(['files' => true]) }}
 	<div class="container-fluid">
@@ -106,4 +107,5 @@
 		</div>
 	</div>
 {{ Form::close() }}
+@endif
 @stop

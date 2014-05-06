@@ -23,6 +23,10 @@ App::missing(function($e) {
 // Define composers
 View::composer('layout', 'MainComposer');
 
+// Allow public access to BBS
+Route::get('bbs/post/{id}', 'BoardController@getPost');
+Route::get('bbs/board/{name}', 'BoardController@getBoard');
+
 // Member-only routes
 Route::group(['before' => 'auth'], function() {
 	Route::group(['prefix' => 'admin'], function() {
@@ -41,5 +45,5 @@ Route::group(['before' => 'guest'], function() {
 	Route::post('login', 'UserController@postLogin');
 });
 
-// Public routes
+// Final route
 Route::controller('/', 'HomeController');
