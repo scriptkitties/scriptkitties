@@ -1,6 +1,13 @@
 @extends('layout')
 
 @section('main')
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12" style="text-align: center;">
+			<h1>/{{ $board->name }}/ <small>{{ $board->description }}</small></h1>
+		</div>
+	</div>
+</div>
 <article class="container-fluid">
 	<header>
 		@if($post->author == null)

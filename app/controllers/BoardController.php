@@ -31,6 +31,7 @@ class BoardController extends BaseController {
 			->get();
 
 		return View::make('pages.bbs.board', [
+			'board' => $board,
 			'posts' => $posts
 		]);
 	}
@@ -42,7 +43,10 @@ class BoardController extends BaseController {
 			App::abort(404);
 		}
 
+		$board = BbsBoard::find($post->board_id);
+
 		return View::make('pages.bbs.post', [
+			'board'   => $board,
 			'post'    => $post,
 			'replies' => $post->replies()
 		]);
