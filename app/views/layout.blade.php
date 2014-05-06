@@ -12,7 +12,7 @@
 						@if(count($bbsBoards) > 0)
 						<ul class="dropdown-menu">
 						@foreach($bbsBoards as $bbsBoard)
-							<li>{{ link_to('bbs/board/'.$bbsBoard->name, '/'.$bbsBoard->name.'/') }}</li>
+							<li>{{ link_to('bbs/board/'.$bbsBoard->name, '/'.$bbsBoard->name.'/'.' - '.$bbsBoard->description) }}</li>
 						@endforeach
 						</ul>
 						@endif
