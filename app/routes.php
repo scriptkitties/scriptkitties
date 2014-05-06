@@ -11,6 +11,15 @@
 |
 */
 
+// Register handlers for HTTP error codes {{{
+App::missing(function($e) {
+	return Response::view('pages.default', [
+		'title'   => trans('error.missing.title'),
+		'content' => trans('error.missing')
+	], 404);
+});
+// }}}
+
 // Define composers
 View::composer('layout', 'MainComposer');
 
