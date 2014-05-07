@@ -19,7 +19,7 @@ class BbsPost extends Eloquent {
 	}
 
 	public function getImage($full = false) {
-		return URL::to($this->path).(!$full?'/thumbnails':'').'/'.$this->file.'.'.$this->extension;
+		return URL::to($this->path).(!$full?'/thumbs':'').'/'.$this->file.'.'.$this->extension;
 	}
 
 	public function getParent() {
@@ -64,11 +64,11 @@ class BbsPost extends Eloquent {
 
 			// Generate a thumbnail
 			App::make('Mews\Phpthumb\Phpthumb')->create('resize', [
-				base_path().$this->path.$filename,
-				$this->size[0],
-				$this->size[1],
+				$path.'/'.$filename.'.'.$ext,
+				$this->thumbSize[0],
+				$this->thumbSize[1],
 				'adaptive']
-			)->save($path.'/thumbnails', $filename);
+			)->save($path.'/thumbs/', $filename.'.'.$ext);
 
 			return true;
 		}
