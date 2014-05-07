@@ -18,12 +18,12 @@ class BbsPost extends Eloquent {
 
 	public function getHeader($toParent = false) {
 		if($this->author == null) {
-			$name = 'Anonymous';
+			$name = trans('bbs.anon');
 		} else {
 			$name = link_to('user/profile/'.$this->author, User::find($this->author)->nickname);
 		}
 
-		$id   = link_to('bbs/post/'.$this->getParent(), $this->getParent());
+		$id   = link_to('bbs/post/'.$this->getParent(), $this->id);
 		$date = $this->created_at;
 
 		return trans('bbs.post.header', ['name' => $name, 'id' => $id, 'date' => $date]);

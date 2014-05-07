@@ -10,19 +10,7 @@
 </div>
 <article class="container-fluid">
 	<header>
-		@if($post->author == null)
-		{{ trans('bbs.post.header', [
-			'name' => 'Anonymous',
-			'id' => link_to('bbs/post/'.$post->id, $post->id),
-			'date' => $post->created_at
-		]) }}
-		@else
-		{{ trans('bbs.post.header', [
-			'name' => link_to('user/profile/'.$post->author, User::find($post->author)->nickname),
-			'id' => link_to('bbs/post/'.$post->id, $post->id),
-			'date' => $post->created_at
-		]) }}
-		@endif
+		{{ $post->getHeader() }}
 	</header>
 	<div class="row">
 		<div class="col-md-2">
@@ -41,19 +29,7 @@
 @foreach($replies as $reply)
 <article class="container-fluid">
 	<header>
-		@if($reply->author == null)
-		{{ trans('bbs.post.header', [
-			'name' => 'anonymous',
-			'id' => link_to('bbs/post/'.$reply->id, $reply->id),
-			'date' => $reply->created_at
-		]) }}
-		@else
-		{{ trans('bbs.post.header', [
-			'name' => link_to('user/profile/'.$reply->author, user::find($reply->author)->nickname),
-			'id' => link_to('bbs/post/'.$reply->id, $reply->id),
-			'date' => $reply->created_at
-		]) }}
-		@endif
+		{{ $reply->getHeader() }}
 	</header>
 	<div class="row">
 		<div class="col-md-2">
