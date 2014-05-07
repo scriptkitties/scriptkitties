@@ -56,6 +56,9 @@
 									<td>{{ Form::select('language', ['en'], 'en') }}</td>
 								</tr>
 								<tr>
+									<td>{{ Form::label('theme', 'Theme') }}</td>
+									<td>{{ Form::select('theme', $themes, $user->preferences->theme) }}
+								<tr>
 									<td>{{ Form::label('anonymize', 'Anonymize BBS posts by default') }}</td>
 									<td>{{ Form::checkbox('anonymize', '1', $user->preferences->anonymize) }}</td>
 								</tr>

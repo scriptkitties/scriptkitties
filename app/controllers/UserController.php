@@ -15,8 +15,18 @@ class UserController extends BaseController {
 	}
 
 	public function getEdit() {
+		// Get all the themes from the directory
+		$themeDir = array_diff(scandir(base_path().'/public/css/themes'), ['.', '..']);
+
+		// Make it into an array for our use
+		foreach($themeDir as $theme) {
+			$t = substr($theme, 0, -4);
+			$themes[$t] = $t;
+		}
+
 		return View::make('pages.user.edit', [
-			'user' => Auth::user()
+			'user'   => Auth::user(),
+			'themes' => array_merge(['default' => 'default'], $themes)
 		]);
 	}
 
@@ -66,6 +76,7 @@ class UserController extends BaseController {
 		// Update preferences
 		$user->preferences->anonymize = Input::get('anonymize') == '1' ? true : false;
 		$user->preferences->language  = Input::get('language');
+		$user->preferences->theme     = Input::get('theme') == 'default' ? null : Input::get('theme');
 
 		// Save the user's new settings
 		$user->push();
