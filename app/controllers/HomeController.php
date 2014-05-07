@@ -7,8 +7,11 @@ class HomeController extends BaseController {
 	}
 
 	public function getAbout() {
-		return View::make('pages.default', [
-			'content' => Page::findByName('about')->getParsed()
+		$posts = BbsPost::orderBy('created_at', 'desc')->take(5)->get();
+
+		return View::make('pages.home.about', [
+			'page'  => Page::findByName('about'),
+			'posts' => $posts
 		]);
 	}
 

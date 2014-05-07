@@ -15,8 +15,18 @@ class UserController extends BaseController {
 	}
 
 	public function getEdit() {
+		// Get all the themes from the directory
+		$themeDir = array_diff(scandir(base_path().'/public/css/themes'), ['.', '..']);
+
+		// Make it into an array for our use
+		foreach($themeDir as $theme) {
+			$t = substr($theme, 0, -4);
+			$themes[$t] = $t;
+		}
+
 		return View::make('pages.user.edit', [
-			'user' => Auth::user()
+			'user'   => Auth::user(),
+			'themes' => array_merge(['default' => 'default'], $themes)
 		]);
 	}
 
@@ -32,11 +42,11 @@ class UserController extends BaseController {
 
 	public function postEdit() {
 		$rules = [
+			'nickname' => 'required',
 			'password' => 'required'
 		];
 
 		if(Input::get('newpass') != '' || Input::get('newpass_confirm')) {
-			// @todo: use that fancy validator function to verify the password
 			$rules['newpass'] = 'required|confirmed';
 		}
 
@@ -49,6 +59,10 @@ class UserController extends BaseController {
 		// Get user as a local variable
 		$user = Auth::user();
 
+		if(!Hash::check(Input::get('password'), $user->password)) {
+			return Redirect::to('user/edit')->with('alert-danger', trans('user.edit.falsepass'));
+		}
+
 		// Update the password if required
 		if(Input::get('newpass') != '') {
 			$user->password = Hash::make(Input::get('newpass'));
@@ -56,11 +70,13 @@ class UserController extends BaseController {
 
 		// Update other user settings
 		$user->nickname = Input::get('nickname');
-		$user->email = Input::get('email');
+		$user->email    = Input::get('email');
+		$user->website  = Input::get('website');
 
 		// Update preferences
 		$user->preferences->anonymize = Input::get('anonymize') == '1' ? true : false;
 		$user->preferences->language  = Input::get('language');
+		$user->preferences->theme     = Input::get('theme') == 'default' ? null : Input::get('theme');
 
 		// Save the user's new settings
 		$user->push();

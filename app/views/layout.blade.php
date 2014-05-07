@@ -76,7 +76,9 @@
 		@section('style')
 		{{ HTML::style('css/normalize.css') }}
 		{{ HTML::style('css/bootstrap.min.css') }}
-		{{ HTML::style('css/bootstrap-theme.min.css') }}
+		@if($theme != null)
+		{{ HTML::style('css/themes/'.$theme.'.css') }}
+		@endif
 		{{ HTML::style('css/style.css') }}
 		@show
 	</head>

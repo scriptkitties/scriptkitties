@@ -43,13 +43,13 @@
 	<header>
 		@if($reply->author == null)
 		{{ trans('bbs.post.header', [
-			'name' => 'Anonymous',
+			'name' => 'anonymous',
 			'id' => link_to('bbs/post/'.$reply->id, $reply->id),
 			'date' => $reply->created_at
 		]) }}
 		@else
 		{{ trans('bbs.post.header', [
-			'name' => link_to('user/profile/'.$reply->author, User::find($reply->author)->nickname),
+			'name' => link_to('user/profile/'.$reply->author, user::find($reply->author)->nickname),
 			'id' => link_to('bbs/post/'.$reply->id, $reply->id),
 			'date' => $reply->created_at
 		]) }}
