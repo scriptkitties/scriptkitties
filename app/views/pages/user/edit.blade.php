@@ -44,8 +44,8 @@
 							{{ Form::password('newpass', ['class' => 'form-control']) }}
 						</div>
 						<div class="form-group">
-							{{ Form::label('newpass_confirm', 'Verify new password') }}
-							{{ Form::password('newpass_confirm', ['class' => 'form-control']) }}
+							{{ Form::label('newpass_confirmation', 'Verify new password') }}
+							{{ Form::password('newpass_confirmation', ['class' => 'form-control']) }}
 						</div>
 					</div>
 					<div id="edit-prefs" class="tab-pane">
