@@ -60,7 +60,8 @@ class UserController extends BaseController {
 
 		// Update other user settings
 		$user->nickname = Input::get('nickname');
-		$user->email = Input::get('email');
+		$user->email    = Input::get('email');
+		$user->website  = Input::get('website');
 
 		// Update preferences
 		$user->preferences->anonymize = Input::get('anonymize') == '1' ? true : false;
