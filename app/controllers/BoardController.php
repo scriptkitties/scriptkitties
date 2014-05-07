@@ -76,19 +76,8 @@ class BoardController extends BaseController {
 		$post->author   = (Input::get('anonify') == '1' ? null : Auth::user()->id);
 		$post->content  = Input::get('content');
 
-		// Add the uploaded file if included
-		if(Input::hasFile('file')) {
-			// Get the original extension
-			$ext      = Input::file('file')->getClientOriginalExtension();
-			$filename = hash_file('sha256', Input::file('file')->getRealPath());
-
-			// Move the file
-			Input::file('file')->move(BbsPost::getUploadPath(),  $filename.'.'.$ext);
-
-			// Add the file to the reply
-			$post->file      = $filename;
-			$post->extension = $ext;
-		}
+		// Upload the file properly
+		$post->setUploadedFile('file');
 
 		// Save the post into the database
 		$post->save();
@@ -123,18 +112,8 @@ class BoardController extends BaseController {
 		$reply->author    = (Input::get('anonify') == '1' ? null : Auth::user()->id);
 		$reply->content   = Input::get('content') == '' ? '' : Input::get('content');
 
-		if(Input::hasFile('file')) {
-			// Get the original extension
-			$ext      = Input::file('file')->getClientOriginalExtension();
-			$filename = hash_file('sha256', Input::file('file')->getRealPath());
-
-			// Move the file
-			Input::file('file')->move(BbsPost::getUploadPath(),  $filename.'.'.$ext);
-
-			// Add the file to the reply
-			$reply->file      = $filename;
-			$reply->extension = $ext;
-		}
+		// Upload the file properly
+		$reply->setUploadedFile('file');
 
 		// Save the reply
 		$reply->save();

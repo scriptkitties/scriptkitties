@@ -14,6 +14,25 @@ class AdminUserController extends BaseController {
 		]);
 	}
 
+	public function getEdit($user) {
+		$user = User::find($user);
+
+		if($user == null) {
+			App::abort(404);
+		}
+
+		return View::make('pages.user.edit', [
+			'adminMode' => true,
+			'user'      => $user
+		]);
+	}
+
+	public function getList() {
+		return View::make('pages.user.list', [
+			'users' => User::all()
+		]);
+	}
+
 	public function postCreate() {
 		$rules = [
 			'nickname' => 'required',
@@ -76,7 +95,6 @@ class AdminUserController extends BaseController {
 			'name'  => $user->nickname,
 			'email' => $user->email
 		]));
-
 	}
 
 }

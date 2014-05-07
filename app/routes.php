@@ -22,6 +22,7 @@ App::missing(function($e) {
 
 // Define composers
 View::composer('layout', 'MainComposer');
+View::composer('pages.user.edit', 'UserEditComposer');
 
 // Allow public access to BBS
 Route::get('bbs/post/{id}', 'BoardController@getPost');

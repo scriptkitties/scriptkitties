@@ -1,20 +1,9 @@
 <?php
 
 class BbsPost extends Eloquent {
-	protected $table = 'bbs_posts';
-
-	public static function getUploadPath($asUri = false) {
-		if($asUri) {
-			$path  = URL::to('/');
-		} else {
-			$path  = base_path();
-			$path .= '/public';
-		}
-
-		$path .= '/img/bbs/';
-
-		return $path;
-	}
+	protected $table     = 'bbs_posts';
+	private   $path      = 'img/bbs';
+	private   $thumbSize = [300, 300];
 
 	public function getHeader($toParent = false) {
 		if($this->author == null) {
@@ -27,6 +16,10 @@ class BbsPost extends Eloquent {
 		$date = $this->created_at;
 
 		return trans('bbs.post.header', ['name' => $name, 'id' => $id, 'date' => $date]);
+	}
+
+	public function getImage($full = false) {
+		return URL::to($this->path).(!$full?'/thumbs':'').'/'.$this->file.'.'.$this->extension;
 	}
 
 	public function getParent() {
@@ -55,12 +48,32 @@ class BbsPost extends Eloquent {
 		return $string;
 	}
 
-	public function getUpload() {
-		if(isset($this->file)) {
-			return self::getUploadPath(true).$this->file.'.'.$this->extension;
+	public function setUploadedFile($field) {
+		if(Input::hasFile($field)) {
+			// Get the original extension
+			$ext      = Input::file($field)->getClientOriginalExtension();
+			$filename = hash_file('sha256', Input::file($field)->getRealPath());
+			$path     = base_path().'/public/'.$this->path;
+
+			// Move the file
+			Input::file($field)->move($path,  $filename.'.'.$ext);
+
+			// Add the file to the reply
+			$this->file      = $filename;
+			$this->extension = $ext;
+
+			// Generate a thumbnail
+			App::make('Mews\Phpthumb\Phpthumb')->create('resize', [
+				$path.'/'.$filename.'.'.$ext,
+				$this->thumbSize[0],
+				$this->thumbSize[1],
+				'adaptive']
+			)->save($path.'/thumbs/', $filename.'.'.$ext);
+
+			return true;
 		}
 
-		return '';
+		return false;
 	}
 
 	public function replies() {

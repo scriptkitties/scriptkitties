@@ -68,15 +68,15 @@
 					<div id="edit-p5p" class="tab-pane">
 						<p>Coming soon(tm)</p>
 					</div>
+					@if(!isset($adminMode) || !$adminMode)
 					<hr>
-					<div>
-						<div class="form-group">
-							{{ Form::label('password', 'Current password') }}
-							{{ Form::password('password', ['class' => 'form-control']) }}
-						</div>
-						<div class="form-group">
-							{{ Form::submit('Edit account', ['class' => 'btn btn-default']) }}
-						</div>
+					<div class="form-group">
+						{{ Form::label('password', 'Current password') }}
+						{{ Form::password('password', ['class' => 'form-control']) }}
+					</div>
+					@endif
+					<div class="form-group">
+						{{ Form::submit('Edit account', ['class' => 'btn btn-default']) }}
 					</div>
 				</div>
 			</form>

@@ -15,18 +15,8 @@ class UserController extends BaseController {
 	}
 
 	public function getEdit() {
-		// Get all the themes from the directory
-		$themeDir = array_diff(scandir(base_path().'/public/css/themes'), ['.', '..']);
-
-		// Make it into an array for our use
-		foreach($themeDir as $theme) {
-			$t = substr($theme, 0, -4);
-			$themes[$t] = $t;
-		}
-
 		return View::make('pages.user.edit', [
-			'user'   => Auth::user(),
-			'themes' => array_merge(['default' => 'default'], $themes)
+			'user' => Auth::user()
 		]);
 	}
 
