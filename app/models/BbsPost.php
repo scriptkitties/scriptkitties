@@ -16,6 +16,27 @@ class BbsPost extends Eloquent {
 		return $path;
 	}
 
+	public function getHeader($toParent = false) {
+		if($this->author == null) {
+			$name = 'Anonymous';
+		} else {
+			$name = link_to('user/profile/'.$this->author, User::find($this->author)->nickname);
+		}
+
+		$id   = link_to('bbs/post/'.$this->getParent(), $this->getParent());
+		$date = $this->created_at;
+
+		return trans('bbs.post.header', ['name' => $name, 'id' => $id, 'date' => $date]);
+	}
+
+	public function getParent() {
+		if($this->parent_id != null) {
+			return $this->parent_id;
+		}
+
+		return $this->id;
+	}
+
 	public function getParsed() {
 		$escape  = ['&', '<', '>', '\'', '"'];
 		$replace = ['&amp;', '&lt;', '&gt;', '&quot;', '&#39'];
