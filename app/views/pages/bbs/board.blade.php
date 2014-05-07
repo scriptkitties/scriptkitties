@@ -12,19 +12,7 @@
 	@foreach($posts as $post)
 	<article class="container-fluid">
 		<header>
-			@if($post->author == null)
-			{{ trans('bbs.post.header', [
-				'name' => 'Anonymous',
-				'id' => link_to('bbs/post/'.$post->id, $post->id),
-				'date' => $post->created_at
-			]) }}
-			@else
-			{{ trans('bbs.post.header', [
-				'name' => link_to('user/profile/'.$post->author, User::find($post->author)->nickname),
-				'id' => link_to('bbs/post/'.$post->id, $post->id),
-				'date' => $post->created_at
-			]) }}
-			@endif
+			{{ $post->getHeader() }}
 		</header>
 		<div class="row">
 			<div class="col-md-2">
