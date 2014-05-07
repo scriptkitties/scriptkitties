@@ -34,14 +34,18 @@
 							{{ Form::label('email', 'Email address') }}
 							{{ Form::text('email', $user->email, ['class' => 'form-control']) }}
 						</div>
+						<div class="form-group">
+							{{ Form::label('website', 'Homepage') }}
+							{{ Form::text('website', $user->website, ['class' => 'form-control']) }}
+						</div>
 						<br>
 						<div class="form-group">
 							{{ Form::label('newpass', 'New password') }}
 							{{ Form::password('newpass', ['class' => 'form-control']) }}
 						</div>
 						<div class="form-group">
-							{{ Form::label('newpass_confirmation', 'Verify new password') }}
-							{{ Form::password('newpass_confirmation', ['class' => 'form-control']) }}
+							{{ Form::label('newpass_confirm', 'Verify new password') }}
+							{{ Form::password('newpass_confirm', ['class' => 'form-control']) }}
 						</div>
 					</div>
 					<div id="edit-prefs" class="tab-pane">

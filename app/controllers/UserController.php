@@ -32,11 +32,11 @@ class UserController extends BaseController {
 
 	public function postEdit() {
 		$rules = [
+			'nickname' => 'required',
 			'password' => 'required'
 		];
 
 		if(Input::get('newpass') != '' || Input::get('newpass_confirm')) {
-			// @todo: use that fancy validator function to verify the password
 			$rules['newpass'] = 'required|confirmed';
 		}
 
@@ -48,6 +48,10 @@ class UserController extends BaseController {
 
 		// Get user as a local variable
 		$user = Auth::user();
+
+		if(!Hash::check(Input::get('password'), $user->password)) {
+			return Redirect::to('user/edit')->with('alert-danger', trans('user.edit.falsepass'));
+		}
 
 		// Update the password if required
 		if(Input::get('newpass') != '') {
