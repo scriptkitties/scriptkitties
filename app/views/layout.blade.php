@@ -88,7 +88,7 @@
 		</header>
 		@yield('nav')
 		@yield('alert')
-		<main>
+		<main style="width: 90%; margin: 0 auto;">
 			@yield('main')
 		</main>
 		<footer id="footer">
