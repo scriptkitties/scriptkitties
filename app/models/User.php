@@ -2,6 +2,7 @@
 
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use Illuminate\Support\MessageBag;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
@@ -112,6 +113,50 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function preferences() {
 		return $this->hasOne('UserPreferences');
+	}
+
+	public function updateFromForm($save = true) {
+		$error = [];
+
+		// Check for unique username if it has been changed
+		if($this->nickname != Input::get('nickname')) {
+			if(DB::table('users')->where('nickname', '=', Input::get('nickname'))->count() > 0) {
+				$error[] = trans('validation.unique', ['attribute' => 'nickname']);
+			}
+		}
+
+		// Check for unique email if it has been changed
+		if($this->email != Input::get('email')) {
+			if(DB::table('users')->where('email', '=', Input::get('email'))->count() > 0) {
+				$error[] = trans('validation.unique', ['email' => 'nickname']);
+			}
+		}
+
+		if(count($error) > 0) {
+			return new MessageBag($error);
+		}
+
+		// Hash a new password
+		if(Input::get('newpass') != '') {
+			$this->password = Hash::make(Input::get('newpass'));
+		}
+
+		// Update other user settings
+		$this->nickname = Input::get('nickname');
+		$this->email    = Input::get('email');
+		$this->website  = Input::get('website');
+
+		// Update preferences
+		$this->preferences->anonymize = Input::get('anonymize') == '1' ? true : false;
+		$this->preferences->language  = Input::get('language');
+		$this->preferences->theme     = Input::get('theme') == 'default' ? null : Input::get('theme');
+
+		// Save the user's new settings
+		if($save) {
+			$this->push();
+		}
+
+		return [];
 	}
 
 }

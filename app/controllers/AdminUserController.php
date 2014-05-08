@@ -35,8 +35,8 @@ class AdminUserController extends BaseController {
 
 	public function postCreate() {
 		$rules = [
-			'nickname' => 'required',
-			'email'    => 'required|email'
+			'nickname' => 'required|unique:users',
+			'email'    => 'required|unique:users|email'
 		];
 
 		$validator = Validator::make(Input::all(), $rules);
@@ -95,6 +95,40 @@ class AdminUserController extends BaseController {
 			'name'  => $user->nickname,
 			'email' => $user->email
 		]));
+	}
+
+	public function postEdit($user = 0) {
+		$user = User::find($user);
+
+		if($user == null) {
+			App::abort(404);
+		}
+
+		$rules = [
+			'newpass'  => 'required|confirmed',
+			'nickname' => 'required'
+		];
+
+		// Check if password is being updated and update rules accordingly
+		if(Input::get('newpass') == '' && Input::get('newpass_confirmation') == '') {
+			unset($rules['newpass']);
+			echo 'a';
+		}
+
+		$validator = Validator::make(Input::all(), $rules);
+
+		if($validator->fails()) {
+			return Redirect::to('admin/user/edit/'.$user->id)->withErrors($validator);
+		}
+
+		// Update the user
+		$e = $user->updateFromForm(true);
+
+		if(count($e) > 0) {
+			return Redirect::to('admin/user/edit/'.$user->id)->withErrors($e);
+		}
+
+		return Redirect::to('admin/user/edit/'.$user->id)->with('alert-success', trans('user.edit.success'));
 	}
 
 }

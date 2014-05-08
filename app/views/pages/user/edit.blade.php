@@ -7,6 +7,9 @@
 		e.preventDefault();
 		$(this).tab("show");
 	});
+
+	// Force all password fields to start empty
+	$("input[type=password]").val("");
 </script>
 @stop
 
@@ -14,7 +17,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
-			<ul id="ue-tabs"class="nav nav-tabs">
+			<ul id="ue-tabs" class="nav nav-tabs">
 				<li data-toggle="tab">{{ link_to('#edit-settings', 'Edit main account settings') }}</li>
 				<li data-toggle="tab">{{ link_to('#edit-prefs', 'Edit preferences') }}</li>
 				<li data-toggle="tab">{{ link_to('#edit-p5p', 'Edit P5P settings') }}</li>
