@@ -35,8 +35,8 @@ class AdminUserController extends BaseController {
 
 	public function postCreate() {
 		$rules = [
-			'nickname' => 'required',
-			'email'    => 'required|email'
+			'nickname' => 'required|unique:users',
+			'email'    => 'required|unique:users|email'
 		];
 
 		$validator = Validator::make(Input::all(), $rules);
@@ -95,6 +95,16 @@ class AdminUserController extends BaseController {
 			'name'  => $user->nickname,
 			'email' => $user->email
 		]));
+	}
+
+	public function postEdit($user = 0) {
+		$user = User::find($user);
+
+		if($user == null) {
+			App::abort(404);
+		}
+
+		return Redirect::to('admin/user/edit/'.$user->id)->with('alert-success', trans('user.edit.success'));
 	}
 
 }
