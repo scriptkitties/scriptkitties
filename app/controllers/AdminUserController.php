@@ -104,6 +104,30 @@ class AdminUserController extends BaseController {
 			App::abort(404);
 		}
 
+		$rules = [
+			'newpass'  => 'required|confirmed',
+			'nickname' => 'required'
+		];
+
+		// Check if password is being updated and update rules accordingly
+		if(Input::get('newpass') == '' && Input::get('newpass_confirmation') == '') {
+			unset($rules['newpass']);
+			echo 'a';
+		}
+
+		$validator = Validator::make(Input::all(), $rules);
+
+		if($validator->fails()) {
+			return Redirect::to('admin/user/edit/'.$user->id)->withErrors($validator);
+		}
+
+		// Update the user
+		$e = $user->updateFromForm(true);
+
+		if(count($e) > 0) {
+			return Redirect::to('admin/user/edit/'.$user->id)->withErrors($e);
+		}
+
 		return Redirect::to('admin/user/edit/'.$user->id)->with('alert-success', trans('user.edit.success'));
 	}
 

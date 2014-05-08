@@ -32,12 +32,14 @@ class UserController extends BaseController {
 
 	public function postEdit() {
 		$rules = [
+			'newpass'  => 'required|confirmed',
 			'nickname' => 'required',
 			'password' => 'required'
 		];
 
-		if(Input::get('newpass') != '' || Input::get('newpass_confirm')) {
-			$rules['newpass'] = 'required|confirmed';
+		// Check if password is being updated and update rules accordingly
+		if(Input::get('newpass') == '' && Input::get('newpass_confirmation') == '') {
+			unset($rules['newpass']);
 		}
 
 		$validator = Validator::make(Input::all(), $rules);
@@ -53,23 +55,12 @@ class UserController extends BaseController {
 			return Redirect::to('user/edit')->with('alert-danger', trans('user.edit.falsepass'));
 		}
 
-		// Update the password if required
-		if(Input::get('newpass') != '') {
-			$user->password = Hash::make(Input::get('newpass'));
+		// Update the user
+		$e = $user->updateFromForm(true);
+
+		if(count($e) > 0) {
+			return Redirect::to('user/edit')->withErrors($e);
 		}
-
-		// Update other user settings
-		$user->nickname = Input::get('nickname');
-		$user->email    = Input::get('email');
-		$user->website  = Input::get('website');
-
-		// Update preferences
-		$user->preferences->anonymize = Input::get('anonymize') == '1' ? true : false;
-		$user->preferences->language  = Input::get('language');
-		$user->preferences->theme     = Input::get('theme') == 'default' ? null : Input::get('theme');
-
-		// Save the user's new settings
-		$user->push();
 
 		return Redirect::to('user/edit')->with('alert-success', trans('user.edit.success'));
 	}

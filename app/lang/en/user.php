@@ -6,5 +6,5 @@ return [
 	'create.nickname' => 'Nickname',
 	'create.submit'   => 'Register user',
 	'create.success'  => 'User :name has been registered and a welcome email has been sent to :email.',
-	'edit.success'    => 'Your accountsettings have been saved.'
+	'edit.success'    => 'Settings have been saved.'
 ];
