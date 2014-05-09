@@ -8,6 +8,7 @@
 			<table class="table">
 				<thead>
 					<tr>
+						<th>Log ID</th>
 						<th>Datetime</th>
 						<th>Description</th>
 					</tr>
@@ -16,8 +17,9 @@
 					@if(count($logs) > 0)
 					@foreach($logs as $log)
 					<tr>
+						<td class="col-md-1">{{ $log->id}}</td>
 						<td class="col-md-2">{{ $log->created_at }}</td>
-						<td class="col-md-10">{{ $log->getDescription() }}</td>
+						<td class="col-md-9">{{ $log->getDescription() }}</td>
 					</tr>
 					@endforeach
 					@endif
