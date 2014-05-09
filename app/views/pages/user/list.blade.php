@@ -26,7 +26,7 @@
 						<td style="text-align: right">
 							{{ link_to('admin/user/edit/'.$user->id, 'Edit', ['class' => 'btn btn-default btn-xs']) }}
 							{{ link_to('admin/user/permissions/'.$user->id, 'Permissions', ['class' => 'btn btn-default btn-xs']) }}
-							{{ link_to('admin/user/delete/'.$user->id, 'Ban', ['class' => 'btn btn-default btn-xs']) }}
+							{{ link_to('admin/user/delete/'.$user->id, 'Delete', ['class' => 'btn btn-default btn-xs']) }}
 						</td>
 					</tr>
 					@endforeach

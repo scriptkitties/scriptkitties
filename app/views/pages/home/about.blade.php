@@ -5,7 +5,11 @@
 	<div class="row">
 		<section class="col-md-8">
 			<h1>About Scriptkitties</h1>
-			<p>{{ $page->getParsed() }}</p>
+			<p>{{ $page[0]->getParsed() }}</p>
+			<h2>Github</h2>
+			<p>{{ $page[1]->getParsed() }}</p>
+			<h2>IRC</h2>
+			<p>{{ $page[2]->getParsed() }}</p>
 		</section>
 		<section class="col-md-4">
 			<h2>Latest board posts</h2>

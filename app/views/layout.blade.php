@@ -18,7 +18,7 @@
 						@endif
 					</li>
 					@endif
-					<li id="nav-li-irc">{{ link_to('irc', 'IRC') }}</li>
+					<li id="nav-li-logs">{{ link_to('logs', 'Website logs') }}</li>
 					<li id="nav-li-user">{{ link_to('user/control', 'User Control Panel') }}</li>
 					<li>{{ link_to('user/logout', 'Logout') }}</li>
 					@else
