@@ -2,19 +2,15 @@
 
 class AdminUserController extends BaseController {
 
-	public function getCreate() {
-		$permlist = [
-			'bbs'   => 'BBS permissions',
-			'user'  => 'User permissions',
-			'pages' => 'Page permissions'
-		];
-
-		return View::make('pages.user.create', [
-			'permlist' => $permlist
-		]);
+	public function getIndex() {
+		return $this->getList();
 	}
 
-	public function getEdit($user) {
+	public function getCreate() {
+		return View::make('pages.user.create');
+	}
+
+	public function getEdit($user = 0) {
 		$user = User::find($user);
 
 		if($user == null) {
@@ -30,6 +26,25 @@ class AdminUserController extends BaseController {
 	public function getList() {
 		return View::make('pages.user.list', [
 			'users' => User::all()
+		]);
+	}
+
+	public function getPermissions($user = 0) {
+		$user = User::find($user);
+
+		if($user == null) {
+			App::abort(404);
+		}
+
+		$permlist = [
+			'bbs'   => 'BBS permissions',
+			'user'  => 'User permissions',
+			'pages' => 'Page permissions'
+		];
+
+		return View::make('pages.user.permissions', [
+			'permlist' => $permlist,
+			'user'     => $user
 		]);
 	}
 
@@ -121,6 +136,32 @@ class AdminUserController extends BaseController {
 		}
 
 		return Redirect::to('admin/user/edit/'.$user->id)->with('alert-success', trans('user.edit.success'));
+	}
+
+	public function postPermissions($user = 0) {
+		$user = User::find($user);
+
+		if($user == null) {
+			App::abort(404);
+		}
+
+		$permlist = [
+			'user',
+			'bbs',
+			'pages'
+		];
+
+		foreach($permlist as $perm) {
+			$p = 0;
+
+			if(Input::get($perm.'_read'))  { $p += 4; }
+			if(Input::get($perm.'_write')) { $p += 2; }
+			if(Input::get($perm.'_admin')) { $p += 1; }
+
+			$user->setPermission($perm, $p);
+		}
+
+		return Redirect::to('admin/user/permissions/'.$user->id)->with('alert-success', trans('user.edit.success'));
 	}
 
 }

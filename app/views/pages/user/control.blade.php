@@ -47,8 +47,6 @@
 						@endif
 						@if($user->hasPermission('user', 'a'))
 						<li>{{ link_to('admin/user/list', 'List all current users') }}</li>
-						<li>{{ link_to('admin/user/edit', 'Modify a user\'s permissions') }}</li>
-						<li>{{ link_to('admin/user/delete', 'Delete a user') }}</li>
 						@endif
 					</ul>
 				</div>
