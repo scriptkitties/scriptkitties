@@ -82,19 +82,17 @@ Route::filter('csrf', function()
 Route::filter('admin-bbs', function() {
 	if(!Auth::check()) { App::abort(401); }
 	if(!Auth::user()->hasPermission('bbs', 'a')) { App::abort(403); }
-
-	return true;
 });
 Route::filter('admin-user', function() {
 	if(!Auth::check()) { App::abort(401); }
 	if(!Auth::user()->hasPermission('user', 'a')) { App::abort(403); }
-
-	return true;
 });
 Route::filter('admin-pages', function() {
 	if(!Auth::check()) { App::abort(401); }
 	if(!Auth::user()->hasPermission('pages', 'a')) { App::abort(403); }
-
-	return true;
+});
+Route::filter('write-user', function() {
+	if(!Auth::check()) { App::abort(401); }
+	if(!Auth::user()->hasPermission('user', 'w')) { App::abort(403); }
 });
 // }}}

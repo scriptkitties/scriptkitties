@@ -31,9 +31,22 @@ Route::get('bbs/board/{name}', 'BoardController@getBoard');
 // Member-only routes
 Route::group(['before' => 'auth'], function() {
 	Route::group(['prefix' => 'admin'], function() {
-		Route::controller('user', 'AdminUserController', ['before', 'admin-user']);
-		Route::controller('pages', 'AdminPageController', ['before', 'admin-pages']);
-		Route::controller('bbs', 'AdminBbsController', ['before', 'admin-bbs']);
+		// Add routes for creating users
+		Route::group(['before' => 'write-user'], function() {
+			Route::get('user/create', 'AdminUserController@getCreate');
+			Route::post('user/create', 'AdminUserController@postCreate');
+		});
+
+		// Generic admin routes
+		Route::group(['before' => 'admin-user'], function() {
+			Route::controller('user', 'AdminUserController');
+		});
+		Route::group(['before' => 'admin-pages'], function() {
+			Route::controller('pages', 'AdminPageController');
+		});
+		Route::group(['before' => 'admin-bbs'], function() {
+			Route::controller('bbs', 'AdminBbsController');
+		});
 	});
 
 	Route::controller('user', 'UserController');

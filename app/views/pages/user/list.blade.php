@@ -12,6 +12,7 @@
 						<th>Homepage</th>
 						<th>Registered since</th>
 						<th>Banned</th>
+						<th>&nbsp;</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -22,6 +23,11 @@
 						<td>{{ link_to($user->website) }}</td>
 						<td>{{ $user->created_at }}</td>
 						<td>{{ $user->deleted_at != null ? 'Yes' : 'No' }}</td>
+						<td style="text-align: right">
+							{{ link_to('admin/user/edit/'.$user->id, 'Edit', ['class' => 'btn btn-default btn-xs']) }}
+							{{ link_to('admin/user/permissions/'.$user->id, 'Permissions', ['class' => 'btn btn-default btn-xs']) }}
+							{{ link_to('admin/user/delete/'.$user->id, 'Ban', ['class' => 'btn btn-default btn-xs']) }}
+						</td>
 					</tr>
 					@endforeach
 				</tbody>
