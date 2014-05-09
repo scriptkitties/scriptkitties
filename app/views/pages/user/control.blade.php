@@ -21,7 +21,7 @@
 		<div class="col-md-2">
 			<ul id="ucp-tabs" class="nav nav-pills nav-stacked">
 				<li data-toggle="pill">{{ link_to('#profile', 'User Settings') }}</li>
-				@if($user->hasPermission('user', 'a'))
+				@if($user->hasPermission('user', 'a') || $user->hasPermission('user', 'w'))
 				<li data-toggle="pill">{{ link_to('#user-admin', 'User Administration') }}</li>
 				@endif
 				@if($user->hasPermission('bbs', 'a'))
@@ -39,13 +39,17 @@
 						<li>{{ link_to('user/edit', 'Edit your own account settings') }}</li>
 					</ul>
 				</div>
-				@if($user->hasPermission('user', 'a'))
+				@if($user->hasPermission('user', 'a') || $user->hasPermission('user', 'w'))
 				<div id="user-admin" class="tab-pane">
 					<ul>
-						<li>{{ link_to('admin/user/list', 'List all current users') }}</li>
+						@if($user->hasPermission('user', 'w'))
 						<li>{{ link_to('admin/user/create', 'Create a new user') }}</li>
+						@endif
+						@if($user->hasPermission('user', 'a'))
+						<li>{{ link_to('admin/user/list', 'List all current users') }}</li>
 						<li>{{ link_to('admin/user/edit', 'Modify a user\'s permissions') }}</li>
 						<li>{{ link_to('admin/user/delete', 'Delete a user') }}</li>
+						@endif
 					</ul>
 				</div>
 				@endif

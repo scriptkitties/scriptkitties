@@ -34,6 +34,10 @@ Route::group(['before' => 'auth'], function() {
 		Route::controller('user', 'AdminUserController', ['before', 'admin-user']);
 		Route::controller('pages', 'AdminPageController', ['before', 'admin-pages']);
 		Route::controller('bbs', 'AdminBbsController', ['before', 'admin-bbs']);
+
+		// Add routes for creating users
+		Route::get('user/create', 'AdminUserController@getCreate', ['before', 'write-user']);
+		Route::post('user/create', 'AdminUserController@postCreate', ['before', 'write-user']);
 	});
 
 	Route::controller('user', 'UserController');

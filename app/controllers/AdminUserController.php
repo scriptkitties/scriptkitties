@@ -60,6 +60,9 @@ class AdminUserController extends BaseController {
 		// Create permissions for the user
 		DB::table('permissions')->insert([
 			'user_id'    => $user->id,
+			'bbs'        => 6,
+			'pages'      => 6,
+			'user'       => 4,
 			'created_at' => date('Y-m-d H:i:s'),
 			'updated_at' => date('Y-m-d H:i:s')
 		]);
@@ -70,17 +73,6 @@ class AdminUserController extends BaseController {
 			'created_at' => date('Y-m-d H:i:s'),
 			'updated_at' => date('Y-m-d H:i:s')
 		]);
-
-		// Loop through all the permissions to set them
-		foreach(Input::get('perms') as $perm) {
-			$p = 0;
-
-			if(Input::get($perm.'_read') == '1')  { $p += 4; }
-			if(Input::get($perm.'_write') == '1') { $p += 2; }
-			if(Input::get($perm.'_admin') == '1') { $p += 1; }
-
-			$user->setPermission($perm, $p);
-		}
 
 		// Send an email to the newly created user with his/her newly created password #security
 		Mail::send('emails.welcome', [
