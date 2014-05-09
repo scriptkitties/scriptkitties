@@ -10,6 +10,18 @@ class AdminUserController extends BaseController {
 		return View::make('pages.user.create');
 	}
 
+	public function getDelete($user = 0) {
+		$user = User::find($user);
+
+		if($user == null) {
+			App::abort(404);
+		}
+
+		return View::make('pages.user.delete', [
+			'user' => $user
+		]);
+	}
+
 	public function getEdit($user = 0) {
 		$user = User::find($user);
 
@@ -102,6 +114,50 @@ class AdminUserController extends BaseController {
 			'name'  => $user->nickname,
 			'email' => $user->email
 		]));
+	}
+
+	public function postDelete($user = 0) {
+		$user = User::find($user);
+
+		if($user == null) {
+			App::abort(404);
+		}
+
+		if(!Input::get('delete')) {
+			return Redirect::to('admin/user/list')->with('alert-notice', 'The user has been left untouched');
+		}
+
+		if(Input::get('delete') != $user->id) {
+			return Redirect::to('admin/user/list')->with('alert-danger', 'Something has terribly gone wrong and a failsafe was triggered. The user has not been deleted.');
+		}
+
+		if(Input::get('delete') == '1') {
+			// Log this action
+			LogEntry::takeNote('log.root.delete');
+
+			return Redirect::to('admin/user/list')->with('alert-danger', 'You cannot delete the root account. This has been logged.');
+		}
+
+		// Log this action
+		LogEntry::takeNote('log.user.delete', null, $user->nickname);
+
+		// Delete the user's permissions
+		$o = UserPermissions::fromUser($user->id);
+		if($o != null) {
+			$o->delete(); 
+			unset($o);
+		}
+
+		// Delete the user's preferences
+		$o = UserPreferences::fromUser($user->id);
+		if($o != null) {
+			$o->delete();
+		}
+
+		// Long but not last, delete the user
+		$user->delete();
+
+		return Redirect::to('admin/user/list')->with('alert-warning', 'The user has been deleted. :(');
 	}
 
 	public function postEdit($user = 0) {
