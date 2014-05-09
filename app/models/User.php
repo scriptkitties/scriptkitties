@@ -141,6 +141,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			$this->password = Hash::make(Input::get('newpass'));
 		}
 
+		// Log the change of username
+		if($this->nickname != Input::get('nickname')) {
+			LogEntry::takeNote('log.user.namechange', $this->id, $this->nickname, Input::get('nickname'));
+		}
+
 		// Update other user settings
 		$this->nickname = Input::get('nickname');
 		$this->email    = Input::get('email');

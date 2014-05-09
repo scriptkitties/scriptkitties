@@ -110,6 +110,9 @@ class AdminUserController extends BaseController {
 			$message->to($user->email, $user->nickname)->subject('Welcome to Scriptkitties!');
 		});
 
+		// Log the creation of the new user
+		LogEntry::takeNote('log.user.create', $user->id);
+
 		return Redirect::to('admin/user/create')->with('alert-success', trans('user.create.success', [
 			'name'  => $user->nickname,
 			'email' => $user->email
