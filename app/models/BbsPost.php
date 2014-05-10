@@ -41,8 +41,11 @@ class BbsPost extends Eloquent {
 		// Add <br> for newlines
 		$string = nl2br($string);
 
+		// Add [code] support
+		$string = str_replace(['[code]', '[/code]'], ['<code>', '</code>'], $string);
+
 		// Add greentext
-		$string = preg_replace('/\&gt\;(.*)/', '<span class="greentext">>$1</span>', $string);
+		$string = preg_replace('/\&gt\;(.*)/', '<span class="greentext">&gt;$1</span>', $string);
 
 		// Return the parsed string
 		return $string;
