@@ -15,7 +15,7 @@
 			<h2>Latest board posts</h2>
 			@if(count($posts) > 0)
 			@foreach($posts as $post)
-			<div class="row">
+			<article class="row">
 				<header>
 					{{ $post->getHeader() }}
 				</header>
@@ -28,8 +28,8 @@
 						@endif
 					</div>
 					<section class="col-md-10">
-						<p>{{ $post->getParsed() }}</p>
-					</div>
+						<p>{{ $post->getParsed(200) }}</p>
+					</section>
 				</div>
 			</article>
 			@endforeach
