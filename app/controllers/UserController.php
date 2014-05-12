@@ -10,7 +10,8 @@ class UserController extends BaseController {
 
 	public function getControl() {
 		return View::make('pages.user.control', [
-			'user' => Auth::user()
+			'user'        => Auth::user(),
+			'showActions' => true
 		]);
 	}
 
@@ -28,6 +29,18 @@ class UserController extends BaseController {
 		Auth::logout();
 
 		return Redirect::to('/');
+	}
+
+	public function getProfile($user = 0) {
+		$user = User::find($user);
+
+		if($user == null) {
+			App::abort(404);
+		}
+
+		return View::make('pages.user.control', [
+			'user' => $user,
+		]);
 	}
 
 	public function postEdit() {
