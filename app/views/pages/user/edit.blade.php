@@ -69,7 +69,29 @@
 						</table>
 					</div>
 					<div id="edit-p5p" class="tab-pane">
-						<p>Coming soon(tm)</p>
+						<table class="table">
+							<tbody>
+								@foreach(UserP5p::$types as $token => $type)
+								<tr>
+									<td><abbr title="{{trans('p5p.'.$token)}}">{{$token}}</abbr></td>
+									<td class="pull-right">
+										@if($type == 'boolean')
+										{{Form::checkbox('p5p['.$token.']', '1', $user->p5p->{$token})}}
+										@endif
+										@if($type == 'enum')
+										{{Form::select('p5p['.$token.']', UserP5p::$enums[$token], $user->p5p->{$token})}}
+										@endif
+										@if($type == 'integer')
+										{{Form::text('p5p['.$token.']', $user->p5p->{$token})}}
+										@endif
+										@if($type == 'string')
+										{{Form::text('p5p['.$token.']', $user->p5p->{$token})}}
+										@endif
+									</td>
+								</tr>
+								@endforeach
+							</tbody>
+						</table>
 					</div>
 					@if(!isset($adminMode) || !$adminMode)
 					<hr>
