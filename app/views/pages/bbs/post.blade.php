@@ -22,7 +22,7 @@
 		</div>
 		<section class="col-md-10">
 			<p>{{ $post->getParsed() }}</p>
-		</div>
+		</section>
 	</div>
 </article>
 @if(count($replies) > 0)
@@ -41,7 +41,7 @@
 		</div>
 		<section class="col-md-10">
 			<p>{{ $reply->getParsed() }}</p>
-		</div>
+		</section>
 	</div>
 </article>
 @endforeach

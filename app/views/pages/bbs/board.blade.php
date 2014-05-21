@@ -24,7 +24,7 @@
 			</div>
 			<section class="col-md-10">
 				<p>{{ $post->getParsed() }}</p>
-			</div>
+			</section>
 		</div>
 		<footer>
 			{{ link_to('bbs/post/'.$post->id, Lang::choice('bbs.post.footer', $post->replyCount(), [

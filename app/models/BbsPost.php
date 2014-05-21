@@ -1,9 +1,9 @@
 <?php
 
 class BbsPost extends Eloquent {
-	protected $table     = 'bbs_posts';
-	private   $path      = 'img/bbs';
-	private   $thumbSize = [300, 300];
+	protected $table       = 'bbs_posts';
+	private   $path        = 'img/bbs';
+	private   $thumbSize   = [300, 300];
 
 	public function getHeader($toParent = false) {
 		if($this->author == null) {
@@ -12,7 +12,9 @@ class BbsPost extends Eloquent {
 			$name = link_to('user/profile/'.$this->author, User::find($this->author)->nickname);
 		}
 
-		$id   = link_to('bbs/post/'.$this->getParent(), $this->id);
+		$id   = link_to('bbs/post/'.$this->getParent().'#post-'.$this->id, $this->id, [
+			'id' => 'post-'.$this->id
+		]);
 		$date = $this->created_at;
 
 		return trans('bbs.post.header', ['name' => $name, 'id' => $id, 'date' => $date]);
@@ -30,24 +32,35 @@ class BbsPost extends Eloquent {
 		return $this->id;
 	}
 
-	public function getParsed() {
-		$escape  = ['&', '<', '>', '\'', '"'];
-		$replace = ['&amp;', '&lt;', '&gt;', '&quot;', '&#39'];
-		$string  = $this->content;
+	public function getParsed($maxLength = 0) {
+		$tags    = [
+			'/\&gt\;(.*)/',
+			'/\&gt\;\&gt\;([0-9]*)/',
+			'/\[code\](.*)\[\/code\]/',
+		];
+		$replace = [
+			'<span class="greentext">&gt;$1</span>',
+			'<a href="#post-$1">&gt;&gt;$1</a>',
+			'<code>$1</code>'
+		];
 
-		// Replace unsafe HTML glyphs
-		$string = str_replace($escape, $replace, $string);
+		// Make the content HTML safe
+		$string  = htmlentities($this->content);
 
 		// Add <br> for newlines
 		$string = nl2br($string);
 
-		// Add [code] support
-		$string = str_replace(['[code]', '[/code]'], ['<code>', '</code>'], $string);
+		// Due to possibly broken HTML, return this without it
+		if($maxLength > 0) {
+			$string = str_replace($tags, '$1', $string);
 
-		// Add greentext
-		$string = preg_replace('/\&gt\;(.*)/', '<span class="greentext">&gt;$1</span>', $string);
+			return str_limit($string, $maxLength, '…');
+		}
 
-		// Return the parsed string
+		// Add other formatting tags
+		$string = preg_replace($tags, $replace, $string);
+
+		// Return the fully parsed string
 		return $string;
 	}
 

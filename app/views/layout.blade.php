@@ -19,7 +19,7 @@
 					</li>
 					@endif
 					<li id="nav-li-logs">{{ link_to('logs', 'Website logs') }}</li>
-					<li id="nav-li-user">{{ link_to('user/control', 'User Control Panel') }}</li>
+					<li id="nav-li-user">{{ link_to('user/control', 'Profile') }}</li>
 					<li>{{ link_to('user/logout', 'Logout') }}</li>
 					@else
 					<li id="nav-li-user">{{ link_to('login', 'Login') }}</li>
