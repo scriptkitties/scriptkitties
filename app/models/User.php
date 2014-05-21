@@ -111,6 +111,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return DB::table('permissions')->where('user_id', '=', $this->id)->update([$perm => $value]);
 	}
 
+	public function p5p() {
+		return $this->hasOne('UserP5p');
+	}
+
 	public function preferences() {
 		return $this->hasOne('UserPreferences');
 	}
@@ -131,6 +135,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 				$error[] = trans('validation.unique', ['email' => 'nickname']);
 			}
 		}
+
+		// Check for possible P5P errors
+		// @todo: check if MOOD is allowed
+		// @todo: check if USER-MIME-TYPE is allowed
+		// @todo: check if AGE is integer
+		// @todo: check if ACTUALAGE is integer
 
 		if(count($error) > 0) {
 			return new MessageBag($error);
@@ -155,6 +165,17 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$this->preferences->anonymize = Input::get('anonymize') == '1' ? true : false;
 		$this->preferences->language  = Input::get('language');
 		$this->preferences->theme     = Input::get('theme') == 'default' ? null : Input::get('theme');
+
+		// Update P5P
+		foreach(UserP5p::$types as $token => $type) {
+			$value = Input::get('p5p.'.$token);
+
+			if($value == null) {
+				continue;
+			}
+
+			$this->p5p->$token = Input::get('p5p.'.$token);
+		}
 
 		// Save the user's new settings
 		if($save) {
