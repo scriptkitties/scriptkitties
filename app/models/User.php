@@ -165,6 +165,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$this->preferences->anonymize = Input::get('anonymize') == '1' ? true : false;
 		$this->preferences->language  = Input::get('language');
 		$this->preferences->theme     = Input::get('theme') == 'default' ? null : Input::get('theme');
+		$this->preferences->desktop   = Input::get('desktop');
+		$this->preferences->irc_join  = Input::get('irc_join');
+		$this->preferences->irc_part  = Input::get('irc_part');
 
 		// Update P5P
 		foreach(UserP5p::$types as $token => $type) {
@@ -183,6 +186,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		}
 
 		return [];
+	}
+
+	public function stats() {
+		return $this->hasOne('UserStats');
 	}
 
 }

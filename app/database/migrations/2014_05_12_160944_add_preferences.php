@@ -12,8 +12,9 @@ class AddPreferences extends Migration {
 	 */
 	public function up() {
 		Schema::table('preferences', function($table) {
-			$table->string('irc', 64)->nullable()->after('anonymize');
-			$table->string('desktop')->nullable()->after('irc');
+			$table->string('desktop')->default('')->after('theme');
+			$table->string('irc_join')->default('')->after('desktop');
+			$table->string('irc_part')->default('')->after('irc_join');
 		});
 	}
 
