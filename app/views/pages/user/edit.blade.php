@@ -52,21 +52,33 @@
 						</div>
 					</div>
 					<div id="edit-prefs" class="tab-pane">
-						<table class="table">
-							<tbody>
-								<tr>
-									<td>{{ Form::label('language', 'Preferred language') }}</td>
-									<td>{{ Form::select('language', ['en'], 'en') }}</td>
-								</tr>
-								<tr>
-									<td>{{ Form::label('theme', 'Theme') }}</td>
-									<td>{{ Form::select('theme', $themes, $user->preferences->theme) }}
-								<tr>
-									<td>{{ Form::label('anonymize', 'Anonymize BBS posts by default') }}</td>
-									<td>{{ Form::checkbox('anonymize', '1', $user->preferences->anonymize) }}</td>
-								</tr>
-							</tbody>
-						</table>
+						<h2>General preferences</h2>
+						<div class="form-group">
+							{{ Form::label('desktop', 'Link to desktop image') }}
+							{{ Form::text('desktop', $user->preferences->desktop, ['class' => 'form-control']) }}
+						</div>
+						<h2>Website preferences</h2>
+						<div class="form-group">
+							{{ Form::label('language', 'Preferred language') }}
+							{{ Form::select('language', ['en'], 'en') }}
+						</div>
+						<div class="from-group">
+							{{ Form::label('theme', 'Theme') }}
+							{{ Form::select('theme', $themes, $user->preferences->theme) }}
+						</div>
+						<div class="form-group">
+							{{ Form::label('anonymize', 'Anonymize BBS posts by default') }}
+							{{ Form::checkbox('anonymize', '1', $user->preferences->anonymize) }}
+						</div>
+						<h2>IRC preferences</h2>
+						<div class="form-group">
+							{{ Form::label('irc_join', 'Join message') }}
+							{{ Form::text('irc_join', $user->preferences->irc_join, ['class' => 'form-control']) }}
+						</div>
+						<div class="form-group">
+							{{ Form::label('irc_part', 'Leave message') }}
+							{{ Form::text('irc_part', $user->preferences->irc_part, ['class' => 'form-control']) }}
+						</div>
 					</div>
 					<div id="edit-p5p" class="tab-pane">
 						<table class="table">

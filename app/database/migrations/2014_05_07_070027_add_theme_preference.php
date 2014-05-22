@@ -12,7 +12,7 @@ class AddThemePreference extends Migration {
 	 */
 	public function up() {
 		Schema::table('preferences', function($table) {
-			$table->string('theme', 32)->nullable();
+			$table->string('theme', 32)->nullable()->after('anonymize');
 		});
 	}
 
