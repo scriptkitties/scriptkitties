@@ -96,7 +96,21 @@ class AdminUserController extends BaseController {
 
 		// Create preferences for the user
 		DB::table('preferences')->insert([
-			'user_id' => $user->id,
+			'user_id'    => $user->id,
+			'created_at' => date('Y-m-d H:i:s'),
+			'updated_at' => date('Y-m-d H:i:s')
+		]);
+
+		// Create P5P settings for the user
+		DB::table('p5p')->insert([
+			'user_id'    => $user->id,
+			'created_at' => date('Y-m-d H:i:s'),
+			'updated_at' => date('Y-m-d H:i:s')
+		]);
+
+		// Create stats for the user
+		DB::table('user_stats')->insert([
+			'user_id'    => $user->id,
 			'created_at' => date('Y-m-d H:i:s'),
 			'updated_at' => date('Y-m-d H:i:s')
 		]);
