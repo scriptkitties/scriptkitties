@@ -16,6 +16,10 @@
 			<table class="table">
 				<tbody>
 					<tr>
+						<td>Epeen length</td>
+						<td>{{$user->stats->epeen}}px</td>
+					</tr>
+					<tr>
 						<td>Registered since</td>
 						<td>{{$user->created_at}}</td>
 					</tr>

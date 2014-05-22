@@ -185,4 +185,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return [];
 	}
 
+	public function stats() {
+		return $this->hasOne('UserStats');
+	}
+
 }
