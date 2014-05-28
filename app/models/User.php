@@ -111,6 +111,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return DB::table('permissions')->where('user_id', '=', $this->id)->update([$perm => $value]);
 	}
 
+	public function ircNicks() {
+		return $this->hasMany('IrcNick');
+	}
+
 	public function p5p() {
 		return $this->hasOne('UserP5p');
 	}
@@ -168,6 +172,21 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$this->preferences->desktop   = Input::get('desktop');
 		$this->preferences->irc_join  = Input::get('irc_join');
 		$this->preferences->irc_part  = Input::get('irc_part');
+
+		// Update IRC nicknames by first deleting all existing entries
+		DB::table('irc_nicks')->where('user_id', '=', $this->id)->delete();
+
+		// Add the entries from the form
+		if(count(Input::get('irc_nick')) > 0) {
+			foreach(Input::get('irc_nick') as $nick) {
+				if($nick != '') {
+					DB::table('irc_nicks')->insert([
+						'user_id' => $this->id,
+						'nick'    => $nick
+					]);
+				}
+			}
+		}
 
 		// Update P5P
 		foreach(UserP5p::$types as $token => $type) {

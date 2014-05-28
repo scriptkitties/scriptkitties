@@ -1,7 +1,7 @@
 <?php
 
-class UserPreferences extends Eloquent {
-	protected $table = 'preferences';
+class IrcNick extends Eloquent {
+	protected $table = 'irc_nicks';
 
 	public static function fromUser($userId = 0) {
 		$results = DB::table($this->table)->where('user_id', '=', $userId)->get();
