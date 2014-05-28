@@ -12,6 +12,20 @@
 			<p>{{ $page[2]->getParsed() }}</p>
 		</section>
 		<section class="col-md-4">
+			<h2>Most respected users</h2>
+			@foreach($epeenTop as $e)
+			<div class="row">
+				<div class="col-md-8">{{ $e->user->nickname }}</div>
+				<div class="col-md-4">{{ $e->epeen }}px</div>
+			</div>
+			@endforeach
+			<h2>Biggest douches</h2>
+			@foreach($epeenBot as $e)
+			<div class="row">
+				<div class="col-md-8">{{ $e->user->nickname }}</div>
+				<div class="col-md-4">{{ $e->epeen }}px</div>
+			</div>
+			@endforeach
 			<h2>Latest board posts</h2>
 			@if(count($posts) > 0)
 			@foreach($posts as $post)
