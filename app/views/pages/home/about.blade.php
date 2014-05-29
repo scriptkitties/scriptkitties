@@ -12,14 +12,16 @@
 			<p>{{ $page[2]->getParsed() }}</p>
 		</section>
 		<section class="col-md-4">
-			<h2>Most respected users</h2>
+			<h2>Epeen ranking</h2>
 			@foreach($epeenTop as $e)
 			<div class="row">
 				<div class="col-md-8">{{ $e->user->nickname }}</div>
 				<div class="col-md-4">{{ $e->epeen }}px</div>
 			</div>
 			@endforeach
-			<h2>Biggest douches</h2>
+			<div class="row">
+				<div class="col-md-12">...</div>
+			</div>
 			@foreach($epeenBot as $e)
 			<div class="row">
 				<div class="col-md-8">{{ $e->user->nickname }}</div>
