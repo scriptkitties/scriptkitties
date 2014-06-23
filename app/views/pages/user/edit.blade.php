@@ -14,12 +14,18 @@
 
 	// Make the "Add another nick" button work
 	$("#add_irc_nick").click(function() {
+		// Add the new nick inputbox
 		$("#add_irc_nick_before").before(" \
 				<div class=\"input-group\"> \
 					{{ str_replace('"', '\"', Form::text('irc_nick[]', '', ['class' => 'form-control'])) }} \
-					<span class=\"input-group-addon\">x</span> \
+					<span class=\"input-group-addon remove-nick\">x</span> \
 				</div> \
 		");
+
+		// Make the remove button work
+		$(".remove-nick").click(function() {
+			$(this).parent().remove();
+		});
 	});
 
 	// Make the delete button work on IRC nicks
