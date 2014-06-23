@@ -132,16 +132,21 @@
 						<div class="form-group">
 							{{ Form::label('irc_nick[]', 'IRC Nicks') }}
 							@if(count($user->irc_nicks) == 0)
-							<div class="input-group">
+							<div class="input-group col-md-9">
 								{{ Form::text('irc_nick[]', '', ['class' => 'form-control']) }}
 								<span class="input-group-addon remove-nick">x</span>
 							</div>
 							@endif
 							@foreach($user->irc_nicks as $nick)
-							<div class="input-group">
+							<div class="input-group col-md-9">
 								{{ Form::text('irc_nick[]', $nick->nick, ['class' => 'form-control']) }}
 								<span class="input-group-addon remove-nick">x</span>
 							</div>
+							@if($nick->verified)
+							<div class="col-md-3">
+								Verified
+							</div>
+							@endif
 							@endforeach
 							<div id="add_irc_nick_before"></div>
 						</div>

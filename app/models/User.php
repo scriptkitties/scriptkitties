@@ -173,19 +173,34 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$this->preferences->irc_join  = Input::get('irc_join');
 		$this->preferences->irc_part  = Input::get('irc_part');
 
-		// Update IRC nicknames by first deleting all existing entries
-		DB::table('irc_nicks')->where('user_id', '=', $this->id)->delete();
+		// Get a list of current nicknames
+		$irc_nicks = $this->irc_nicks;
+
+		// Make a clean array onicks
+		foreach($irc_nicks as $n) {
+			$nicks[$n->nick] = $n->nick;
+		}
 
 		// Add the entries from the form
 		if(count(Input::get('irc_nick')) > 0) {
 			foreach(Input::get('irc_nick') as $nick) {
-				if($nick != '') {
+				// Check wether it's a new nick
+				if($nick != '' &&  !in_array($nick, $nicks)) {
 					DB::table('irc_nicks')->insert([
-						'user_id' => $this->id,
-						'nick'    => $nick
+						'user_id'      => $this->id,
+						'nick'         => $nick,
+						'verification' => md5($nick)
 					]);
 				}
+
+				// Remove the nick from the $nicks array
+				unset($nicks[$nick]);
 			}
+		}
+
+		// Remove all leftover $nicks
+		foreach($nicks as $n) {
+			IrcNick::where('nick', '=', $n)->where('user_id', '=', $this->id)->delete();
 		}
 
 		// Update P5P
