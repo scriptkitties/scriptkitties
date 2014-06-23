@@ -18,7 +18,7 @@ class HomeController extends BaseController {
 
 		// Get the best and worst users by epeen
 		$epeenTop = UserStats::orderBy('epeen', 'DESC')->take(5)->get();
-		$epeenBot = UserStats::orderBy('epeen', 'ASC')->take(3)->get();
+		$epeenBot = UserStats::orderBy('epeen', 'DESC')->skip(UserStats::count() - 3)->take(3)->get();
 
 		// Create the about page
 		return View::make('pages.home.about', [
