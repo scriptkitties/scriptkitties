@@ -12,9 +12,7 @@ class HomeController extends BaseController {
 		$posts = BbsPost::orderBy('created_at', 'desc')->take(5)->get();
 
 		// Get the about-pages
-		$page[] = Page::findByName('about');
-		$page[] = Page::findByName('github');
-		$page[] = Page::findByName('irc');
+		$page = Page::findByName('frontpage');
 
 		// Get the best and worst users by epeen
 		$epeenTop = UserStats::orderBy('epeen', 'DESC')->take(5)->get();

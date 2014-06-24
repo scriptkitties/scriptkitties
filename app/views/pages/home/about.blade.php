@@ -4,12 +4,15 @@
 <div class="container-fluid">
 	<div class="row">
 		<section class="col-md-8">
-			<h1>About Scriptkitties</h1>
-			<p>{{ $page[0]->getParsed() }}</p>
-			<h2>Github</h2>
-			<p>{{ $page[1]->getParsed() }}</p>
-			<h2>IRC</h2>
-			<p>{{ $page[2]->getParsed() }}</p>
+			<h1>
+				Scriptkitties
+				@if(Auth::check() && Auth::user()->hasPermission('pages', 'a'))
+				<small>
+					[{{ link_to('admin/pages/edit/'.$page->id, 'edit') }}]
+				</small>
+				@endif
+			</h1>
+			{{$page->getParsed()}}
 		</section>
 		<section class="col-md-4">
 			<h2>Epeen ranking</h2>

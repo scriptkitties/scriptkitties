@@ -39,9 +39,6 @@
 				<li>{{ link_to('admin/bbs/create', 'Create a new board') }}</li>
 				<li>{{ link_to('admin/bbs/delete', 'Delete a board') }}</li>
 				@endif
-				@if($user->hasPermission('pages', 'a'))
-				<li>{{ link_to('admin/pages/edit', 'Edit a page on the website') }}</li>
-				@endif
 			</ul>
 			@endif
 		</div>
