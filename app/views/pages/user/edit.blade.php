@@ -3,6 +3,7 @@
 @section('script')
 @parent
 <script>
+	// Activate the tabs
 	$("#ue-tabs a").click(function(e) {
 		e.preventDefault();
 		$(this).tab("show");
@@ -10,6 +11,27 @@
 
 	// Force all password fields to start empty
 	$("input[type=password]").val("");
+
+	// Make the "Add another nick" button work
+	$("#add_irc_nick").click(function() {
+		// Add the new nick inputbox
+		$("#add_irc_nick_before").before(" \
+				<div class=\"input-group\"> \
+					{{ str_replace('"', '\"', Form::text('irc_nick[]', '', ['class' => 'form-control'])) }} \
+					<span class=\"input-group-addon remove-nick\">x</span> \
+				</div> \
+		");
+
+		// Make the remove button work
+		$(".remove-nick").click(function() {
+			$(this).parent().remove();
+		});
+	});
+
+	// Make the delete button work on IRC nicks
+	$(".remove-nick").click(function() {
+		$(this).parent().remove();
+	});
 </script>
 @stop
 
@@ -21,6 +43,7 @@
 				<li data-toggle="tab">{{ link_to('#edit-settings', 'Edit main account settings') }}</li>
 				<li data-toggle="tab">{{ link_to('#edit-prefs', 'Edit preferences') }}</li>
 				<li data-toggle="tab">{{ link_to('#edit-p5p', 'Edit P5P settings') }}</li>
+				<li data-toggle="tab">{{ link_to('#edit-irc', 'Edit IRC nicknames') }}</li>
 			</ul>
 		</div>
 	</div>
@@ -104,6 +127,34 @@
 								@endforeach
 							</tbody>
 						</table>
+					</div>
+					<div id="edit-irc" class="tab-pane">
+						<div class="form-group">
+							{{ Form::label('irc_nick[]', 'IRC Nicks') }}
+							@if(count($user->irc_nicks) == 0)
+							<div class="input-group col-md-9">
+								{{ Form::text('irc_nick[]', '', ['class' => 'form-control']) }}
+								<span class="input-group-addon remove-nick">x</span>
+							</div>
+							@endif
+							@foreach($user->irc_nicks as $nick)
+							<div class="input-group col-md-9">
+								{{ Form::text('irc_nick[]', $nick->nick, ['class' => 'form-control']) }}
+								<span class="input-group-addon remove-nick">x</span>
+							</div>
+							@if($nick->verified)
+							<div class="col-md-3">
+								Verified
+							</div>
+							@endif
+							@endforeach
+							<div id="add_irc_nick_before"></div>
+						</div>
+						<div class="form-group">
+							<button id="add_irc_nick" class="btn btn-default" type="button">
+								Add another nick
+							</button>
+						</div>
 					</div>
 					@if(!isset($adminMode) || !$adminMode)
 					<hr>

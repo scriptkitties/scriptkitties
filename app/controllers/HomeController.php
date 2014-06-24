@@ -8,14 +8,22 @@ class HomeController extends BaseController {
 	}
 
 	public function getAbout() {
+		// Get the 5 latest boardposts
 		$posts = BbsPost::orderBy('created_at', 'desc')->take(5)->get();
-		$page[] = Page::findByName('about');
-		$page[] = Page::findByName('github');
-		$page[] = Page::findByName('irc');
 
+		// Get the about-pages
+		$page = Page::findByName('frontpage');
+
+		// Get the best and worst users by epeen
+		$epeenTop = UserStats::orderBy('epeen', 'DESC')->take(5)->get();
+		$epeenBot = UserStats::orderBy('epeen', 'DESC')->skip(UserStats::count() - 3)->take(3)->get();
+
+		// Create the about page
 		return View::make('pages.home.about', [
-			'page'  => $page,
-			'posts' => $posts
+			'page'     => $page,
+			'posts'    => $posts,
+			'epeenTop' => $epeenTop,
+			'epeenBot' => $epeenBot,
 		]);
 	}
 

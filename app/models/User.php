@@ -111,6 +111,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return DB::table('permissions')->where('user_id', '=', $this->id)->update([$perm => $value]);
 	}
 
+	public function ircNicks() {
+		return $this->hasMany('IrcNick');
+	}
+
 	public function p5p() {
 		return $this->hasOne('UserP5p');
 	}
@@ -168,6 +172,36 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$this->preferences->desktop   = Input::get('desktop');
 		$this->preferences->irc_join  = Input::get('irc_join');
 		$this->preferences->irc_part  = Input::get('irc_part');
+
+		// Get a list of current nicknames
+		$irc_nicks = $this->irc_nicks;
+
+		// Make a clean array onicks
+		foreach($irc_nicks as $n) {
+			$nicks[$n->nick] = $n->nick;
+		}
+
+		// Add the entries from the form
+		if(count(Input::get('irc_nick')) > 0) {
+			foreach(Input::get('irc_nick') as $nick) {
+				// Check wether it's a new nick
+				if($nick != '' &&  !in_array($nick, $nicks)) {
+					DB::table('irc_nicks')->insert([
+						'user_id'      => $this->id,
+						'nick'         => $nick,
+						'verification' => md5($nick)
+					]);
+				}
+
+				// Remove the nick from the $nicks array
+				unset($nicks[$nick]);
+			}
+		}
+
+		// Remove all leftover $nicks
+		foreach($nicks as $n) {
+			IrcNick::where('nick', '=', $n)->where('user_id', '=', $this->id)->delete();
+		}
 
 		// Update P5P
 		foreach(UserP5p::$types as $token => $type) {

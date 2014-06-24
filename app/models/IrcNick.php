@@ -1,7 +1,7 @@
 <?php
 
-class UserStats extends Eloquent {
-	protected $table = 'user_stats';
+class IrcNick extends Eloquent {
+	protected $table = 'irc_nicks';
 
 	public static function fromUser($userId = 0) {
 		$results = DB::table($this->table)->where('user_id', '=', $userId)->get();
@@ -14,6 +14,6 @@ class UserStats extends Eloquent {
 	}
 
 	public function user() {
-		return $this->belongsTo('User');
+		$this->belongsTo('user');
 	}
 }

@@ -4,7 +4,7 @@ class UserPreferences extends Eloquent {
 	protected $table = 'preferences';
 
 	public static function fromUser($userId = 0) {
-		$results = DB::table('preferences')->where('user_id', '=', $userId)->get();
+		$results = DB::table($this->table)->where('user_id', '=', $userId)->get();
 
 		if(count($results) != 1) {
 			return null;
