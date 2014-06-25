@@ -62,3 +62,17 @@ nav.navbar .navbar-nav > .open > a:focus {
 	background-color: #303030;
 	color: #3579A8;
 }
+
+/**
+ * Alerts
+ */
+.alert-danger {
+	background-color: #101010;
+	color: #FF0090;
+	border-color: #FF0090;
+}
+.alert-success {
+	background-color: #101010;
+	color:#66AA11;
+	border-color: #66aa11;
+}
