@@ -16,21 +16,23 @@
 		</section>
 		<section class="col-md-4">
 			<h2>Epeen ranking</h2>
+			<table class="table">
 			@foreach($epeenTop as $e)
-			<div class="row">
-				<div class="col-md-8">{{ $e->user->nickname }}</div>
-				<div class="col-md-4">{{ $e->epeen }}px</div>
-			</div>
+				<tr>
+					<td>{{ $e->user->nickname }}</td>
+					<td>{{ $e->epeen }}px</td>
+				</tr>
 			@endforeach
-			<div class="row">
-				<div class="col-md-12">...</div>
-			</div>
+				<tr>
+					<td colspan="2">...</td>
+				</tr>
 			@foreach($epeenBot as $e)
-			<div class="row">
-				<div class="col-md-8">{{ $e->user->nickname }}</div>
-				<div class="col-md-4">{{ $e->epeen }}px</div>
-			</div>
+				<tr>
+					<td>{{ $e->user->nickname }}</td>
+					<td>{{ $e->epeen }}px</td>
+				</tr>
 			@endforeach
+			</table>
 			<h2>Latest board posts</h2>
 			@if(count($posts) > 0)
 			@foreach($posts as $post)
