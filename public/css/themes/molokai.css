@@ -4,7 +4,7 @@ html, body {
 }
 
 a {
-	color: #3579A8;
+	color: #4EB4FA;
 	text-decoration: none;
 }
 
@@ -23,6 +23,10 @@ section {
 nav.navbar {
 	background-color: #303030;
 	border-radius: 0;
+	border-top: 1px solid;
+	border-right: 0;
+	border-bottom: 1px solid;
+	border-left: 0;
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -37,4 +41,24 @@ nav.navbar .navbar-nav > li.active > a {
 	background-color: #101010;
 }
 nav.navbar .navbar-nav > li.active > a:hover {
+	background-color: #101010;
+	color: #3579A8;
+}
+
+nav.navbar .navbar-nav > .open > a,
+nav.navbar .navbar-nav > .open > a:hover,
+nav.navbar .navbar-nav > .open > a:focus {
+	background-color: #101010;
+	color: #3579A8;
+}
+
+.navbar-nav > li > .dropdown-menu {
+	background-color: #303030;
+}
+.dropdown-menu > li > a {
+	color: #4EB3FA;
+}
+.dropdown-menu > li > a:hover {
+	background-color: #303030;
+	color: #3579A8;
 }
