@@ -72,9 +72,9 @@ class BoardController extends BaseController {
 
 		// Create the post
 		$post = new BbsPost();
-		$post->board_id = $board->id;
-		$post->author   = (Input::get('anonify') == '1' ? null : Auth::user()->id);
-		$post->content  = Input::get('content');
+		$post->board_id  = $board->id;
+		$post->author_id = (Input::get('anonify') == '1' ? null : Auth::user()->id);
+		$post->content   = Input::get('content');
 
 		// Upload the file properly
 		$post->setUploadedFile('file');
@@ -109,7 +109,7 @@ class BoardController extends BaseController {
 		$reply = new BbsPost();
 		$reply->board_id  = $post->board_id;
 		$reply->parent_id = $post->id;
-		$reply->author    = (Input::get('anonify') == '1' ? null : Auth::user()->id);
+		$reply->author_id = (Input::get('anonify') == '1' ? null : Auth::user()->id);
 		$reply->content   = Input::get('content') == '' ? '' : Input::get('content');
 
 		// Upload the file properly
