@@ -1,6 +1,14 @@
 @extends('layout')
 
 @section('main')
+<h1>
+	Logs
+	@if(Auth::check() && Auth::user()->hasPermission('pages', 'a'))
+	<small>
+		[{{ link_to('admin/pages/edit/'.$page->id, 'edit') }}]
+	</small>
+	@endif
+</h1>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
