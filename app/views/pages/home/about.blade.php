@@ -34,7 +34,7 @@
 			<h2>Latest board posts</h2>
 			@if(count($posts) > 0)
 			@foreach($posts as $post)
-			<article class="row">
+			<article class="row bbs-preview">
 				<header>
 					{{ $post->getHeader() }}
 				</header>

@@ -13,6 +13,8 @@ footer#footer {
 	max-height: 300px;
 }
 
-.greentext {
-	color: green;
+.bbs-preview {
+	max-height: 8em;
+	overflow: hidden;
 }
+
