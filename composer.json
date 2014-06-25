@@ -5,7 +5,8 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",
-		"mews/phpthumb": "dev-master"
+		"mews/phpthumb": "dev-master",
+		"graham-campbell/markdown": "1.1.*"
 	},
 	"autoload": {
 		"classmap": [
