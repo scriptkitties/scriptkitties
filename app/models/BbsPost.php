@@ -47,6 +47,13 @@ class BbsPost extends Eloquent {
 			$filename = hash_file('sha256', Input::file($field)->getRealPath());
 			$path     = base_path().'/public/'.$this->path;
 
+			// Some extensions need fixing
+			switch($ext) {
+				case 'jpeg':
+					$ext = 'jpg';
+					break;
+			}
+
 			// Move the file
 			Input::file($field)->move($path,  $filename.'.'.$ext);
 
