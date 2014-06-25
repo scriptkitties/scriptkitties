@@ -14,9 +14,6 @@ class Page extends Eloquent {
 	}
 
 	public function getParsed() {
-		$string = $this->content;
-		$string = nl2br($string);
-
-		return $string;
+		return Markdown::render($this->content);
 	}
 }
