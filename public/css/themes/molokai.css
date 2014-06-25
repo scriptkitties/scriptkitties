@@ -76,3 +76,11 @@ nav.navbar .navbar-nav > .open > a:focus {
 	color:#66AA11;
 	border-color: #66aa11;
 }
+
+/**
+ * Tabs
+ */
+.nav-tabs > li > a:focus,
+.nav-tabs > li > a:hover {
+	background-color: #101010;
+}
