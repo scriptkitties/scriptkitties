@@ -33,35 +33,11 @@ class BbsPost extends Eloquent {
 	}
 
 	public function getParsed($maxLength = 0) {
-		$tags    = [
-			'/\&gt\;(.*)/',
-			'/\&gt\;\&gt\;([0-9]*)/',
-			'/\[code\](.*)\[\/code\]/',
-		];
-		$replace = [
-			'<span class="greentext">&gt;$1</span>',
-			'<a href="#post-$1">&gt;&gt;$1</a>',
-			'<code>$1</code>'
-		];
-
 		// Make the content HTML safe
-		$string  = htmlentities($this->content);
-
-		// Add <br> for newlines
-		$string = nl2br($string);
-
-		// Due to possibly broken HTML, return this without it
-		if($maxLength > 0) {
-			$string = str_replace($tags, '$1', $string);
-
-			return str_limit($string, $maxLength, '…');
-		}
-
-		// Add other formatting tags
-		$string = preg_replace($tags, $replace, $string);
+		//$string  = htmlentities($this->content);
 
 		// Return the fully parsed string
-		return $string;
+		return Markdown::render($this->content);
 	}
 
 	public function setUploadedFile($field) {
@@ -70,6 +46,13 @@ class BbsPost extends Eloquent {
 			$ext      = Input::file($field)->getClientOriginalExtension();
 			$filename = hash_file('sha256', Input::file($field)->getRealPath());
 			$path     = base_path().'/public/'.$this->path;
+
+			// Some extensions need fixing
+			switch($ext) {
+				case 'jpeg':
+					$ext = 'jpg';
+					break;
+			}
 
 			// Move the file
 			Input::file($field)->move($path,  $filename.'.'.$ext);

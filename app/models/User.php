@@ -48,6 +48,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	/**
+	 * Attributes
+	 */
+	public function getCreatedAtAttribute() {
+		return new DateTime($this->attributes['created_at']);
+	}
+
+	/**
 	 * Check if a user has a certain permission.
 	 *
 	 * @return bool
@@ -175,6 +182,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 		// Get a list of current nicknames
 		$irc_nicks = $this->irc_nicks;
+
+		// Make an empty $nicks array
+		$nicks = [];
 
 		// Make a clean array onicks
 		foreach($irc_nicks as $n) {

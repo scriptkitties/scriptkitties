@@ -1,32 +1,33 @@
 @section('nav')
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-10 col-md-offset-1">
-			<nav class="navbar navbar-default">
-				<ul class="nav navbar-nav">
-					<li id="nav-li-about">{{ link_to('about', 'About') }}</li>
-					@if(Auth::check())
-					@if(Auth::user()->hasPermission('bbs', 'r'))
-					<li id="nav-li-bbs" class="dropdown">
-						{{ link_to('#', 'BBS', ['class' => 'dropdown-toggle', 'data-toggle' => 'dropdown']) }}
-						@if(count($bbsBoards) > 0)
-						<ul class="dropdown-menu">
-						@foreach($bbsBoards as $bbsBoard)
-							<li>{{ link_to('bbs/board/'.$bbsBoard->name, '/'.$bbsBoard->name.'/'.' - '.$bbsBoard->description) }}</li>
-						@endforeach
-						</ul>
-						@endif
-					</li>
+		<nav class="navbar navbar-default">
+			<div class="col-md-10 col-md-offset-1">
+			<ul class="nav navbar-nav">
+				<li id="nav-li-about">{{ link_to('about', 'About') }}</li>
+				@if(Auth::check())
+				@if(Auth::user()->hasPermission('bbs', 'r'))
+				<li id="nav-li-bbs" class="dropdown">
+					{{ link_to('#', 'BBS', ['class' => 'dropdown-toggle', 'data-toggle' => 'dropdown']) }}
+					@if(count($bbsBoards) > 0)
+					<ul class="dropdown-menu">
+					@foreach($bbsBoards as $bbsBoard)
+						<li>{{ link_to('bbs/board/'.$bbsBoard->name, '/'.$bbsBoard->name.'/'.' - '.$bbsBoard->description) }}</li>
+					@endforeach
+					</ul>
 					@endif
-					<li id="nav-li-logs">{{ link_to('logs', 'Website logs') }}</li>
-					<li id="nav-li-user">{{ link_to('user/control', 'Profile') }}</li>
-					<li>{{ link_to('user/logout', 'Logout') }}</li>
-					@else
-					<li id="nav-li-user">{{ link_to('login', 'Login') }}</li>
-					@endif
-				</ul>
-			</nav>
-		</div>
+				</li>
+				@endif
+				<li id="nav-li-logs">{{ link_to('logs', 'Website logs') }}</li>
+				<li id="nav-li-members">{{ link_to('members', 'Members') }}</li>
+				<li id="nav-li-user">{{ link_to('user/control', 'Profile') }}</li>
+				<li>{{ link_to('user/logout', 'Logout') }}</li>
+				@else
+				<li id="nav-li-user">{{ link_to('login', 'Login') }}</li>
+				@endif
+			</ul>
+			</div>
+		</nav>
 	</div>
 </div>
 @stop

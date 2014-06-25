@@ -21,7 +21,7 @@
 						<td>{{ link_to('admin/user/edit/'.$user->id, $user->nickname) }}</td>
 						<td>{{ link_to('mailto:'.$user->email, $user->email) }}</td>
 						<td>{{ link_to($user->website) }}</td>
-						<td>{{ $user->created_at }}</td>
+						<td>{{ $user->created_at->format(Config::get('app.formats.date')) }}</td>
 						<td>{{ $user->deleted_at != null ? 'Yes' : 'No' }}</td>
 						<td style="text-align: right">
 							{{ link_to('admin/user/edit/'.$user->id, 'Edit', ['class' => 'btn btn-default btn-xs']) }}

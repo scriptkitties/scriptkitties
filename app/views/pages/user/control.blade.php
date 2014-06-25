@@ -4,7 +4,12 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
-			<h1>{{$user->nickname}}</h1>
+			<h1>
+				{{$user->nickname}}
+				@if(isset($showActions) && $showActions && $user->hasPermission('user', 'a'))
+				<small>[{{link_to('user/edit', 'Edit')}}]</small>
+				@endif
+			</h1>
 		</div>
 	</div>
 	<div class="row">
@@ -21,14 +26,13 @@
 					</tr>
 					<tr>
 						<td>Registered since</td>
-						<td>{{$user->created_at}}</td>
+						<td>{{$user->created_at->format(Config::get('app.formats.date'))}}</td>
 					</tr>
 				</tbody>
 			</table>
 			@if(isset($showActions) && $showActions)
 			<h2>Actions</h2>
 			<ul>
-				<li>{{ link_to('user/edit', 'Edit your own account settings') }}</li>
 				@if($user->hasPermission('user', 'a'))
 				<li>{{ link_to('admin/user/list', 'List all current users') }}</li>
 				@endif
