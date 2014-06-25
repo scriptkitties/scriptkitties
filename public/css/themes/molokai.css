@@ -1,3 +1,6 @@
+/**
+ * Generic tags
+ */
 html, body {
 	background-color: #272822;
 	color: #D0D0D0;
@@ -10,6 +13,11 @@ a {
 
 a:hover {
 	text-decoration: none;
+}
+
+blockquote {
+	border-left-color: #66AA11;
+	color: #66AA11;
 }
 
 section {
@@ -84,3 +92,4 @@ nav.navbar .navbar-nav > .open > a:focus {
 .nav-tabs > li > a:hover {
 	background-color: #101010;
 }
+
