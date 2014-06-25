@@ -50,6 +50,8 @@ Route::group(['before' => 'auth'], function() {
 	});
 
 	Route::controller('user', 'UserController');
+	Route::controller('members', 'MemberController');
+	Route::get('member/{id}', 'MemberController@getProfile');
 	Route::controller('bbs', 'BoardController');
 });
 

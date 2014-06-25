@@ -6,7 +6,7 @@
 		<div class="col-md-12">
 			<h1>
 				{{$user->nickname}}
-				@if($user->hasPermission('user', 'a'))
+				@if(isset($showActions) && $showActions && $user->hasPermission('user', 'a'))
 				<small>[{{link_to('user/edit', 'Edit')}}]</small>
 				@endif
 			</h1>
@@ -26,7 +26,7 @@
 					</tr>
 					<tr>
 						<td>Registered since</td>
-						<td>{{$user->created_at}}</td>
+						<td>{{$user->created_at->format(Config::get('app.formats.date'))}}</td>
 					</tr>
 				</tbody>
 			</table>

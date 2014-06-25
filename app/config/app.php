@@ -191,4 +191,11 @@ return array(
 
 	),
 
+	/**
+	 * Preferred formats
+	 */
+
+	'formats.date'     => 'Y-m-d',
+	'formats.datetime' => 'Y-m-d H:i:s'
+
 );

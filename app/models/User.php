@@ -48,6 +48,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	/**
+	 * Attributes
+	 */
+	public function getCreatedAtAttribute() {
+		return new DateTime($this->attributes['created_at']);
+	}
+
+	/**
 	 * Check if a user has a certain permission.
 	 *
 	 * @return bool
