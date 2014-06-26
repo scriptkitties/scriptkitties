@@ -10,7 +10,6 @@ a {
 	color: #4EB4FA;
 	text-decoration: none;
 }
-
 a:hover {
 	text-decoration: none;
 }
@@ -18,6 +17,12 @@ a:hover {
 blockquote {
 	border-left-color: #66AA11;
 	color: #66AA11;
+}
+pre {
+	background-color: #303030;
+	border-radius: 0;
+	color: #D0D0D0;
+	font-family: "Source Code Pro", Courier;
 }
 
 section {
