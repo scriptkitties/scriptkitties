@@ -10,27 +10,25 @@
 </div>
 @if(count($posts) > 0)
 	@foreach($posts as $post)
-	<article class="container-fluid">
-		<header>
+	<article class="container-fluid bbs-post">
+		<header class="bbs-post-header">
 			{{ $post->getHeader() }}
+			[{{ link_to('bbs/post/'.$post->id, Lang::choice('bbs.post.footer', $post->replyCount(), [
+				'count' => $post->replyCount()
+			])) }}]
 		</header>
-		<div class="row">
-			<div class="col-md-2">
+		<div class="row bbs-post-content">
+			<div class="col-sm-2 bbs-post-image">
 				@if(isset($post->file))
 				<a href="{{ URL::to('bbs/post/'.$post->id) }}">
 				<img class="bbs-img" src="{{ $post->getImage() }}" alt="">
 				</a>
 				@endif
 			</div>
-			<section class="col-md-10">
+			<section class="col-sm-10 bbs-post-text">
 				<p>{{ $post->getParsed() }}</p>
 			</section>
 		</div>
-		<footer>
-			{{ link_to('bbs/post/'.$post->id, Lang::choice('bbs.post.footer', $post->replyCount(), [
-				'count' => $post->replyCount()
-			])) }}
-		</footer>
 	</article>
 	@endforeach
 @else

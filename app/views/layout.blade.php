@@ -11,9 +11,14 @@
 					{{ link_to('#', 'BBS', ['class' => 'dropdown-toggle', 'data-toggle' => 'dropdown']) }}
 					@if(count($bbsBoards) > 0)
 					<ul class="dropdown-menu">
-					@foreach($bbsBoards as $bbsBoard)
+						@foreach($bbsBoards as $bbsBoard)
 						<li>{{ link_to('bbs/board/'.$bbsBoard->name, '/'.$bbsBoard->name.'/'.' - '.$bbsBoard->description) }}</li>
-					@endforeach
+						@endforeach
+						@if(Auth::user()->hasPermission('bbs', 'a'))
+						<li><hr></li>
+						<li>{{ link_to('admin/bbs/create', 'Create a board') }}</li>
+						<li>{{ link_to('admin/bbs/delete', 'Delete a board') }}</li>
+						@endif
 					</ul>
 					@endif
 				</li>

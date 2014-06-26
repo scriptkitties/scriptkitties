@@ -17,7 +17,9 @@ class BbsPost extends Eloquent {
 		]);
 		$date = $this->created_at;
 
-		return trans('bbs.post.header', ['name' => $name, 'id' => $id, 'date' => $date]);
+		$header  = trans('bbs.post.header', ['name' => $name, 'id' => $id, 'date' => $date]);
+
+		return $header;
 	}
 
 	public function getImage($full = false) {
@@ -34,10 +36,9 @@ class BbsPost extends Eloquent {
 
 	public function getParsed($maxLength = 0) {
 		// Make the content HTML safe
-		//$string  = htmlentities($this->content);
 
 		// Return the fully parsed string
-		return Markdown::render($this->content);
+		return Markdown::parse($this->content);
 	}
 
 	public function setUploadedFile($field) {

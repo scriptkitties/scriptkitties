@@ -14,7 +14,7 @@ footer#footer {
 }
 
 .bbs-preview {
-	max-height: 8em;
+	height: 10em;
 	overflow: hidden;
 }
 

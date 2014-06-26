@@ -10,7 +10,6 @@ a {
 	color: #4EB4FA;
 	text-decoration: none;
 }
-
 a:hover {
 	text-decoration: none;
 }
@@ -19,10 +18,27 @@ blockquote {
 	border-left-color: #66AA11;
 	color: #66AA11;
 }
+pre {
+	background-color: #303030;
+	border-radius: 0;
+	color: #D0D0D0;
+	font-family: "Source Code Pro", Courier;
+}
 
 section {
 	padding: 4px;
 	border-radius: 4px;
+}
+
+/*
+ * Generic styling
+ */
+.content {
+	border: 1px solid #101010;
+	background-color: #303030;
+	border-radius: 0;
+	padding: 6px 16px;
+	margin-bottom: 28px;
 }
 
 /**
@@ -81,7 +97,7 @@ nav.navbar .navbar-nav > .open > a:focus {
 }
 .alert-success {
 	background-color: #101010;
-	color:#66AA11;
+	color: #66AA11;
 	border-color: #66aa11;
 }
 
@@ -91,5 +107,36 @@ nav.navbar .navbar-nav > .open > a:focus {
 .nav-tabs > li > a:focus,
 .nav-tabs > li > a:hover {
 	background-color: #101010;
+}
+
+/**
+ * Tables
+ */
+.content table.table > tbody > tr > td {
+	border: 0;
+}
+table.table.table-hover > tbody > tr:hover > td {
+	background-color: inherit;
+	border-bottom: 1px solid #D0D0D0;
+	border-top: 1px solid #D0D0D0;
+}
+
+/**
+ * BBS
+ */
+.bbs-post {
+	border: 1px solid;
+	border-color: #101010;
+	margin: 2px 0;
+	background-color: #303030;
+	padding: 3px 8px;
+}
+.bbs-post-header {
+}
+.bbs-post-content {
+}
+.bbs-post-image {
+}
+.bbs-post-text {
 }
 

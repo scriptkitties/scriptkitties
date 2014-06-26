@@ -93,7 +93,6 @@ return array(
 
 	'providers' => array(
 
-		'GrahamCampbell\Markdown\MarkdownServiceProvider',
 		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
 		'Illuminate\Auth\AuthServiceProvider',
 		'Illuminate\Cache\CacheServiceProvider',
@@ -120,6 +119,7 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
+		'MaxHoffmann\Parsedown\ParsedownServiceProvider',
 		'Mews\Phpthumb\PhpthumbServiceProvider'
 
 	),
@@ -170,8 +170,8 @@ return array(
 		'Input'           => 'Illuminate\Support\Facades\Input',
 		'Lang'            => 'Illuminate\Support\Facades\Lang',
 		'Log'             => 'Illuminate\Support\Facades\Log',
+		'Markdown'        => 'MaxHoffmann\Parsedown\ParsedownFacade',
 		'Mail'            => 'Illuminate\Support\Facades\Mail',
-		'Markdown'        => 'GrahamCampbell\Markdown\Facades\Markdown',
 		'Paginator'       => 'Illuminate\Support\Facades\Paginator',
 		'Password'        => 'Illuminate\Support\Facades\Password',
 		'Queue'           => 'Illuminate\Support\Facades\Queue',

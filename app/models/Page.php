@@ -14,6 +14,6 @@ class Page extends Eloquent {
 	}
 
 	public function getParsed() {
-		return Markdown::render($this->content);
+		return Markdown::parse($this->content);
 	}
 }

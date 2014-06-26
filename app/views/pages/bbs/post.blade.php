@@ -8,38 +8,38 @@
 		</div>
 	</div>
 </div>
-<article class="container-fluid">
-	<header>
+<article class="container-fluid bbs-post">
+	<header class="bbs-post-header">
 		{{ $post->getHeader() }}
 	</header>
-	<div class="row">
-		<div class="col-md-2">
+	<div class="row bbs-post-content">
+		<div class="col-sm-2 bbs-post-image">
 		@if(isset($post->file))
 			<a href="{{ $post->getImage(true) }}">
 				<img class="bbs-img" src="{{ $post->getImage() }}" alt="">
 			</a>
 		@endif
 		</div>
-		<section class="col-md-10">
+		<section class="col-sm-10 bbs-post-text">
 			<p>{{ $post->getParsed() }}</p>
 		</section>
 	</div>
 </article>
 @if(count($replies) > 0)
 @foreach($replies as $reply)
-<article class="container-fluid">
-	<header>
+<article class="container-fluid bbs-post">
+	<header class="bbs-post-header">
 		{{ $reply->getHeader() }}
 	</header>
-	<div class="row">
-		<div class="col-md-2">
+	<div class="row bbs-post-content">
+		<div class="col-sm-2 bbs-post-image">
 			@if(isset($reply->file))
 			<a href="{{ $reply->getImage(true) }}">
 				<img class="bbs-img" src="{{ $reply->getImage() }}" alt="">
 			</a>
 			@endif
 		</div>
-		<section class="col-md-10">
+		<section class="col-sm-10 bbs-post-text">
 			<p>{{ $reply->getParsed() }}</p>
 		</section>
 	</div>
