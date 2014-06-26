@@ -81,7 +81,7 @@ nav.navbar .navbar-nav > .open > a:focus {
 }
 .alert-success {
 	background-color: #101010;
-	color:#66AA11;
+	color: #66AA11;
 	border-color: #66aa11;
 }
 
@@ -91,5 +91,24 @@ nav.navbar .navbar-nav > .open > a:focus {
 .nav-tabs > li > a:focus,
 .nav-tabs > li > a:hover {
 	background-color: #101010;
+}
+
+/**
+ * BBS
+ */
+.bbs-post {
+	border: 1px solid;
+	border-color: #101010;
+	margin: 2px 0;
+	background-color: #303030;
+	padding: 3px 8px;
+}
+.bbs-post-header {
+}
+.bbs-post-content {
+}
+.bbs-post-image {
+}
+.bbs-post-text {
 }
 
