@@ -25,6 +25,17 @@ section {
 	border-radius: 4px;
 }
 
+/*
+ * Generic styling
+ */
+.content {
+	border: 1px solid #101010;
+	background-color: #303030;
+	border-radius: 0;
+	padding: 6px 16px;
+	margin-bottom: 28px;
+}
+
 /**
  * Navigation bar
  */
@@ -91,6 +102,18 @@ nav.navbar .navbar-nav > .open > a:focus {
 .nav-tabs > li > a:focus,
 .nav-tabs > li > a:hover {
 	background-color: #101010;
+}
+
+/**
+ * Tables
+ */
+.content table.table > tbody > tr > td {
+	border: 0;
+}
+table.table.table-hover > tbody > tr:hover > td {
+	background-color: inherit;
+	border-bottom: 1px solid #D0D0D0;
+	border-top: 1px solid #D0D0D0;
 }
 
 /**
