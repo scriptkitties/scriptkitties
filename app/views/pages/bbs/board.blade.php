@@ -18,14 +18,14 @@
 			])) }}]
 		</header>
 		<div class="row bbs-post-content">
-			<div class="col-md-2 bbs-post-image">
+			<div class="col-sm-2 bbs-post-image">
 				@if(isset($post->file))
 				<a href="{{ URL::to('bbs/post/'.$post->id) }}">
 				<img class="bbs-img" src="{{ $post->getImage() }}" alt="">
 				</a>
 				@endif
 			</div>
-			<section class="col-md-10 bbs-post-text">
+			<section class="col-sm-10 bbs-post-text">
 				<p>{{ $post->getParsed() }}</p>
 			</section>
 		</div>

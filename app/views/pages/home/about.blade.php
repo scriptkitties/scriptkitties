@@ -49,14 +49,14 @@
 					[{{link_to('bbs/post/'.$post->getParent().'#post-'.$post->id, trans('bbs.reply'))}}]
 				</header>
 				<div class="row">
-					<div class="col-md-2">
+					<div class="col-sm-2 col-md-3">
 						@if(isset($post->file))
 						<a href="{{ URL::to('bbs/post/'.$post->getParent()) }}">
 							<img class="bbs-img" src="{{ $post->getImage() }}" alt="">
 						</a>
 						@endif
 					</div>
-					<section class="col-md-10">
+					<section class="col-sm-10 col-md-9">
 						<p>{{ $post->getParsed(200) }}</p>
 					</section>
 				</div>

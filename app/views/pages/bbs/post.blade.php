@@ -13,14 +13,14 @@
 		{{ $post->getHeader() }}
 	</header>
 	<div class="row bbs-post-content">
-		<div class="col-md-2 bbs-post-image">
+		<div class="col-sm-2 bbs-post-image">
 		@if(isset($post->file))
 			<a href="{{ $post->getImage(true) }}">
 				<img class="bbs-img" src="{{ $post->getImage() }}" alt="">
 			</a>
 		@endif
 		</div>
-		<section class="col-md-10 bbs-post-text">
+		<section class="col-sm-10 bbs-post-text">
 			<p>{{ $post->getParsed() }}</p>
 		</section>
 	</div>
@@ -32,14 +32,14 @@
 		{{ $reply->getHeader() }}
 	</header>
 	<div class="row bbs-post-content">
-		<div class="col-md-2 bbs-post-image">
+		<div class="col-sm-2 bbs-post-image">
 			@if(isset($reply->file))
 			<a href="{{ $reply->getImage(true) }}">
 				<img class="bbs-img" src="{{ $reply->getImage() }}" alt="">
 			</a>
 			@endif
 		</div>
-		<section class="col-md-10 bbs-post-text">
+		<section class="col-sm-10 bbs-post-text">
 			<p>{{ $reply->getParsed() }}</p>
 		</section>
 	</div>
