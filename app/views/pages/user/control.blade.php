@@ -30,15 +30,6 @@
 					</tr>
 				</tbody>
 			</table>
-			@if(isset($showActions) && $showActions)
-			<h2>Actions</h2>
-			<ul>
-				@if($user->hasPermission('bbs', 'a'))
-				<li>{{ link_to('admin/bbs/create', 'Create a new board') }}</li>
-				<li>{{ link_to('admin/bbs/delete', 'Delete a board') }}</li>
-				@endif
-			</ul>
-			@endif
 		</div>
 	</div>
 </div>
