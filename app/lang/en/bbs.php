@@ -13,6 +13,7 @@ return [
 	'post.footer'   => ':count reply|:count replies',
 	'post.header'   => ':name posted #:id on :date:',
 	'post.success'  => 'Your post has been created with id #:id.',
+	'reply'         => 'Reply',
 	'reply.title'   => 'Leave a reply',
 	'reply.image'   => 'Choose an image',
 	'reply.submit'  => 'Post reply',

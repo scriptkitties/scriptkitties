@@ -17,7 +17,9 @@ class BbsPost extends Eloquent {
 		]);
 		$date = $this->created_at;
 
-		return trans('bbs.post.header', ['name' => $name, 'id' => $id, 'date' => $date]);
+		$header  = trans('bbs.post.header', ['name' => $name, 'id' => $id, 'date' => $date]);
+
+		return $header;
 	}
 
 	public function getImage($full = false) {

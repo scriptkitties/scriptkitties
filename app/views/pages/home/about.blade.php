@@ -19,7 +19,7 @@
 			<table class="table">
 			@foreach($epeenTop as $e)
 				<tr>
-					<td>{{ $e->user->nickname }}</td>
+					<td>{{link_to('member/'.$e->user->id, $e->user->nickname)}}</td>
 					<td>{{ $e->epeen }}px</td>
 				</tr>
 			@endforeach
@@ -28,7 +28,7 @@
 				</tr>
 			@foreach($epeenBot as $e)
 				<tr>
-					<td>{{ $e->user->nickname }}</td>
+					<td>{{link_to('member/'.$e->user->id, $e->user->nickname)}}</td>
 					<td>{{ $e->epeen }}px</td>
 				</tr>
 			@endforeach
@@ -36,9 +36,10 @@
 			<h2>Latest board posts</h2>
 			@if(count($posts) > 0)
 			@foreach($posts as $post)
-			<article class="row bbs-preview">
+			<article class="row bbs-post bbs-preview">
 				<header>
 					{{ $post->getHeader() }}
+					[{{link_to('bbs/post/'.$post->getParent().'#post-'.$post->id, trans('bbs.reply'))}}]
 				</header>
 				<div class="row">
 					<div class="col-md-2">
