@@ -33,12 +33,6 @@
 			@if(isset($showActions) && $showActions)
 			<h2>Actions</h2>
 			<ul>
-				@if($user->hasPermission('user', 'a'))
-				<li>{{ link_to('admin/user/list', 'List all current users') }}</li>
-				@endif
-				@if($user->hasPermission('user', 'w'))
-				<li>{{ link_to('admin/user/create', 'Create a new user') }}</li>
-				@endif
 				@if($user->hasPermission('bbs', 'a'))
 				<li>{{ link_to('admin/bbs/create', 'Create a new board') }}</li>
 				<li>{{ link_to('admin/bbs/delete', 'Delete a board') }}</li>
