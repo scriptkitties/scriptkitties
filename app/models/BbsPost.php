@@ -34,10 +34,9 @@ class BbsPost extends Eloquent {
 
 	public function getParsed($maxLength = 0) {
 		// Make the content HTML safe
-		//$string  = htmlentities($this->content);
 
 		// Return the fully parsed string
-		return Markdown::render($this->content);
+		return Markdown::parse($this->content);
 	}
 
 	public function setUploadedFile($field) {

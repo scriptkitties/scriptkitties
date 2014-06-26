@@ -6,7 +6,7 @@
 	"require": {
 		"laravel/framework": "4.1.*",
 		"mews/phpthumb": "dev-master",
-		"graham-campbell/markdown": "1.1.*"
+		"maxhoffmann/parsedown-laravel": "dev-master"
 	},
 	"autoload": {
 		"classmap": [
