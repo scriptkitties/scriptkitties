@@ -24,7 +24,7 @@
 				@foreach($epeenTop as $e)
 					<tr>
 						<td>{{link_to('member/'.$e->user->id, $e->user->nickname)}}</td>
-						<td>{{ $e->epeen }}px</td>
+						<td style="text-align: right">{{ $e->epeen }}px</td>
 					</tr>
 				@endforeach
 					<tr>
@@ -33,7 +33,7 @@
 				@foreach($epeenBot as $e)
 					<tr>
 						<td>{{link_to('member/'.$e->user->id, $e->user->nickname)}}</td>
-						<td>{{ $e->epeen }}px</td>
+						<td style="text-align: right">{{ $e->epeen }}px</td>
 					</tr>
 				@endforeach
 				</table>
