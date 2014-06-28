@@ -6,7 +6,7 @@ class MemberController extends BaseController {
 	}
 
 	public function getList() {
-		$members = User::all();
+		$members = User::orderBy('nickname')->get();
 
 		return View::make('pages.members.list', [
 			'members' => $members
