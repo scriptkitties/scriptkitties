@@ -46,6 +46,14 @@ class AdminBbsController extends BaseController {
 			App::abort(404);
 		}
 
+		// If the post had a known author, deduct him 2px of epeen
+		if($post->author_id != null) {
+			$user = User::find($post->author_id);
+
+			$user->stats->epeen -= 2;
+			$user->push();
+		}
+
 		$post->delete();
 
 		return Redirect::to('bbs/post/'.$post->getParent().'#post-'.$post->id);
