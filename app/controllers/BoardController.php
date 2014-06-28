@@ -101,6 +101,12 @@ class BoardController extends BaseController {
 		// Save the post into the database
 		$post->save();
 
+		// Award the author with 1px of epeen if he didn't post anonymous
+		if($post->author_id != null) {
+			Auth::user()->stats->epeen++;
+			Auth::user()->push();
+		}
+
 		return Redirect::to('bbs/post/'.$post->id);
 	}
 
@@ -136,6 +142,12 @@ class BoardController extends BaseController {
 
 		// Save the reply
 		$reply->save();
+
+		// Award the author with 1px of epeen if he didn't post anonymous
+		if($reply->author_id != null) {
+			Auth::user()->stats->epeen++;
+			Auth::user()->push();
+		}
 
 		return Redirect::to('bbs/post/'.$post->id)->with('alert-success', trans('bbs.reply.success', [
 			'id' => $reply->id

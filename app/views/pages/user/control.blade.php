@@ -21,11 +21,11 @@
 					<tbody>
 						<tr>
 							<td>Epeen length</td>
-							<td>{{$user->stats->epeen}}px</td>
+							<td style="text-align: right">{{$user->stats->epeen}}px</td>
 						</tr>
 						<tr>
 							<td>Registered since</td>
-							<td>{{$user->created_at->format(Config::get('app.formats.date'))}}</td>
+							<td style="text-align: right">{{$user->created_at->format(Config::get('app.formats.date'))}}</td>
 						</tr>
 					</tbody>
 				</table>

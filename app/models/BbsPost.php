@@ -9,7 +9,9 @@ class BbsPost extends Eloquent {
 		if($this->author_id == null) {
 			$name = trans('bbs.anon');
 		} else {
-			$name = link_to('user/profile/'.$this->author_id, User::find($this->author_id)->nickname);
+			$author = User::find($this->author_id);
+
+			$name = link_to('user/profile/'.$this->author_id, $author->nickname).' ('.$author->stats->epeen.'px)';
 		}
 
 		$id   = link_to('bbs/post/'.$this->getParent().'#post-'.$this->id, $this->id, [
