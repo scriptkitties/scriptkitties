@@ -8,11 +8,21 @@ footer#footer {
 	margin: 5px;
 }
 
+.bbs-post-header {
+	clear: both;
+	overflow: hidden;
+}
+.bbs-post-header-left {
+	float: left;
+}
+.bbs-post-header-right {
+	float: right;
+}
+
 .bbs-img {
 	max-width: 100%;
 	max-height: 300px;
 }
-
 .bbs-preview {
 	height: 10em;
 	overflow: hidden;

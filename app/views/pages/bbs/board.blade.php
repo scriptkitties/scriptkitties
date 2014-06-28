@@ -12,10 +12,14 @@
 	@foreach($posts as $post)
 	<article class="container-fluid bbs-post">
 		<header class="bbs-post-header">
-			{{ $post->getHeader() }}
+			<div class="pull-left">
+				{{ $post->getHeader() }}
+			</div>
+			<div class="pull-right">
 			[{{ link_to('bbs/post/'.$post->id, Lang::choice('bbs.post.footer', $post->replyCount(), [
 				'count' => $post->replyCount()
 			])) }}]
+			</div>
 		</header>
 		<div class="row bbs-post-content">
 			<div class="col-sm-2 bbs-post-image">
@@ -35,41 +39,6 @@
 {{ trans('bbs.board.empty') }}
 @endif
 @if(Auth::check())
-<hr>
-{{ Form::open(['files' => true]) }}
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="form-group">
-					{{ Form::label('content', trans('bbs.new.title')) }}
-					{{ Form::textarea('content', null, ['class' => 'form-control']) }}
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-7">
-				<div class="form-group">
-					{{ Form::label('file', trans('bbs.new.image')) }}
-					{{ Form::file('file') }}
-				</div>
-			</div>
-			<div class="col-sm-3">
-				<div class="form-group">
-					<div class="checkbox">
-						<label>
-							{{ trans('bbs.anonify') }}
-							{{ Form::checkbox('anonify', '1', Auth::user()->preferences->anonymize) }}
-						</label>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-2">
-				<div class="form-group">
-					{{ Form::submit(trans('bbs.new.submit'), ['class' => 'btn btn-default pull-right']) }}
-				</div>
-			</div>
-		</div>
-	</div>
-{{ Form::close() }}
+{{$replyBlock}}
 @endif
 @stop

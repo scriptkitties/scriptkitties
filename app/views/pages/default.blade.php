@@ -1,5 +1,14 @@
 @extends('layout')
 
+@section('script')
+@if(!isset($nojs) || $nojs == false)
+@parent
+@endif
+@if(isset($js))
+{{ $js }}
+@endif
+@stop
+
 @section('main')
 <div class="container-fluid">
 	@if(isset($title))

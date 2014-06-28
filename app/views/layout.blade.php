@@ -9,18 +9,18 @@
 				@if(Auth::user()->hasPermission('bbs', 'r'))
 				<li id="nav-li-bbs" class="dropdown">
 					{{ link_to('#', 'BBS', ['class' => 'dropdown-toggle', 'data-toggle' => 'dropdown']) }}
-					@if(count($bbsBoards) > 0)
 					<ul class="dropdown-menu">
+						@if(count($bbsBoards) > 0)
 						@foreach($bbsBoards as $bbsBoard)
 						<li>{{ link_to('bbs/board/'.$bbsBoard->name, '/'.$bbsBoard->name.'/'.' - '.$bbsBoard->description) }}</li>
 						@endforeach
+						@endif
 						@if(Auth::user()->hasPermission('bbs', 'a'))
 						<li><hr></li>
 						<li>{{ link_to('admin/bbs/create', 'Create a board') }}</li>
 						<li>{{ link_to('admin/bbs/delete', 'Delete a board') }}</li>
 						@endif
 					</ul>
-					@endif
 				</li>
 				@endif
 				<li id="nav-li-logs">{{ link_to('logs', 'Website logs') }}</li>
@@ -104,7 +104,7 @@
 		{{ HTML::script('js/vendor/jquery.js') }}
 		{{ HTML::script('js/bootstrap.min.js') }}
 		<script>
-			// I R jQuery proz
+			// Properly color the navbar
 			$("#nav-li-{{Request::segment(1)}}").addClass("active");
 		</script>
 		@show

@@ -39,6 +39,18 @@ class AdminBbsController extends BaseController {
 		]));
 	}
 
+	public function getPostDelete($post = 0) {
+		$post = BbsPost::find($post);
+
+		if($post == null) {
+			App::abort(404);
+		}
+
+		$post->delete();
+
+		return Redirect::to('bbs/post/'.$post->getParent().'#post-'.$post->id);
+	}
+
 	public function postDelete($board = 0) {
 		$board = BbsBoard::find($board);
 
