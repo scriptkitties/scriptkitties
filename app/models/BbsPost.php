@@ -6,10 +6,10 @@ class BbsPost extends Eloquent {
 	private   $thumbSize   = [300, 300];
 
 	public function getHeader($toParent = false) {
-		if($this->author == null) {
+		if($this->author_id == null) {
 			$name = trans('bbs.anon');
 		} else {
-			$name = link_to('user/profile/'.$this->author, User::find($this->author)->nickname);
+			$name = link_to('user/profile/'.$this->author_id, User::find($this->author_id)->nickname);
 		}
 
 		$id   = link_to('bbs/post/'.$this->getParent().'#post-'.$this->id, $this->id, [
@@ -42,6 +42,11 @@ class BbsPost extends Eloquent {
 	}
 
 	public function setUploadedFile($field) {
+		// Unset the previous data, if any
+		$this->file      = null;
+		$this->extension = null;
+
+		// Update with the new file, if set
 		if(Input::hasFile($field)) {
 			// Get the original extension
 			$ext      = Input::file($field)->getClientOriginalExtension();
@@ -76,11 +81,15 @@ class BbsPost extends Eloquent {
 		return false;
 	}
 
-	public function replies() {
-		return $this->where('parent_id', '=', $this->id)->get();
+	public function replies($withDeleted = false) {
+		if($withDeleted) {
+			return self::withTrashed()->where('parent_id', '=', $this->id)->orderBy('created_at', 'ASC')->get();
+		}
+
+		return self::where('parent_id', '=', $this->id)->orderBy('created_at', 'ASC')->get();
 	}
 
 	public function replyCount() {
-		return $this->where('parent_id', '=', $this->id)->count();
+		return self::where('parent_id', '=', $this->id)->count();
 	}
 }

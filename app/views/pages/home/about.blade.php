@@ -44,9 +44,13 @@
 			@if(count($posts) > 0)
 			@foreach($posts as $post)
 			<article class="row bbs-post bbs-preview">
-				<header>
-					{{ $post->getHeader() }}
-					[{{link_to('bbs/post/'.$post->getParent().'#post-'.$post->id, trans('bbs.reply'))}}]
+				<header class="bbs-post-header">
+					<div class="pull-left">
+						{{ $post->getHeader() }}
+					</div>
+					<div class="pull-right">
+						[{{link_to('bbs/post/'.$post->getParent().'#post-'.$post->id, trans('bbs.reply'))}}]
+					</div>
 				</header>
 				<div class="row">
 					<div class="col-sm-2 col-md-3">

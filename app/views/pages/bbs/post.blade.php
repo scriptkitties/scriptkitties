@@ -10,7 +10,19 @@
 </div>
 <article class="container-fluid bbs-post">
 	<header class="bbs-post-header">
-		{{ $post->getHeader() }}
+		<div class="pull-left">
+			{{ $post->getHeader() }}
+		</div>
+		@if(Auth::check())
+		<div class="pull-right">
+			@if(Auth::user()->id == $post->author_id)
+			[{{link_to('bbs/post-edit/'.$post->id, 'edit')}}]
+			@endif
+			@if(Auth::user()->hasPermission('bbs', 'a'))
+			[{{link_to('admin/bbs/post-delete/'.$post->id, 'delete')}}]
+			@endif
+		</div>
+		@endif
 	</header>
 	<div class="row bbs-post-content">
 		<div class="col-sm-2 bbs-post-image">
@@ -29,7 +41,19 @@
 @foreach($replies as $reply)
 <article class="container-fluid bbs-post">
 	<header class="bbs-post-header">
-		{{ $reply->getHeader() }}
+		<div class="pull-left">
+			{{ $reply->getHeader() }}
+		</div>
+		@if(Auth::check())
+		<div class="pull-right">
+			@if(Auth::user()->id == $reply->author_id)
+			[{{link_to('bbs/post-edit/'.$reply->id, 'edit')}}]
+			@endif
+			@if(Auth::user()->hasPermission('bbs', 'a'))
+			[{{link_to('admin/bbs/post-delete/'.$reply->id, 'delete')}}]
+			@endif
+		</div>
+		@endif
 	</header>
 	<div class="row bbs-post-content">
 		<div class="col-sm-2 bbs-post-image">
@@ -47,41 +71,6 @@
 @endforeach
 @endif
 @if(Auth::check())
-<hr>
-{{ Form::open(['files' => true]) }}
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="form-group">
-					{{ Form::label('content', trans('bbs.reply.title')) }}
-					{{ Form::textarea('content', null, ['class' => 'form-control']) }}
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-7">
-				<div class="form-group">
-					{{ Form::label('file', trans('bbs.reply.image')) }}
-					{{ Form::file('file') }}
-				</div>
-			</div>
-			<div class="col-sm-3">
-				<div class="form-group">
-					<div class="checkbox">
-						<label>
-							{{ trans('bbs.anonify') }}
-							{{ Form::checkbox('anonify', '1', Auth::user()->preferences->anonymize) }}
-						</label>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-2">
-				<div class="form-group">
-					{{ Form::submit(trans('bbs.reply.submit'), ['class' => 'btn btn-default pull-right']) }}
-				</div>
-			</div>
-		</div>
-	</div>
-{{ Form::close() }}
+{{$replyBlock}}
 @endif
 @stop
