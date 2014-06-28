@@ -16,7 +16,7 @@
 						@endforeach
 						@endif
 						@if(Auth::user()->hasPermission('bbs', 'a'))
-						<li><hr></li>
+						<li class="divider"></li>
 						<li>{{ link_to('admin/bbs/create', 'Create a board') }}</li>
 						<li>{{ link_to('admin/bbs/delete', 'Delete a board') }}</li>
 						@endif
