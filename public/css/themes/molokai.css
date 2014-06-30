@@ -90,15 +90,20 @@ nav.navbar .navbar-nav > .open > a:focus {
 /**
  * Alerts
  */
-.alert-danger {
+.alert-danger, .alert-success {
 	background-color: #101010;
+	border-radius: 0;
+}
+.alert-danger {
 	color: #FF0090;
 	border-color: #FF0090;
 }
 .alert-success {
-	background-color: #101010;
 	color: #66AA11;
 	border-color: #66aa11;
+}
+.close:hover, .close:focus {
+	color: inherit;
 }
 
 /**
@@ -107,6 +112,20 @@ nav.navbar .navbar-nav > .open > a:focus {
 .nav-tabs > li > a:focus,
 .nav-tabs > li > a:hover {
 	background-color: #101010;
+}
+
+/**
+ * Buttons
+ */
+.btn-default {
+	color: inherit;
+	background-color: inherit;
+	border-color: #D0D0D0;
+}
+.btn-default:hover {
+	color: inherit;
+	background-color: #101010;
+	border-color: #D0D0D0;
 }
 
 /**
@@ -119,6 +138,15 @@ table.table.table-hover > tbody > tr:hover > td {
 	background-color: inherit;
 	border-bottom: 1px solid #D0D0D0;
 	border-top: 1px solid #D0D0D0;
+}
+
+/**
+ * Formfields
+ */
+.form-control {
+	background-color: inherit;
+	border: 1px solid inherit;
+	color: inherit;
 }
 
 /**
