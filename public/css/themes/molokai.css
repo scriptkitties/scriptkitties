@@ -148,6 +148,10 @@ table.table.table-hover > tbody > tr:hover > td {
 	border: 1px solid inherit;
 	color: inherit;
 }
+.input-group-addon {
+	background-color: #272822;
+	color: inherit;
+}
 
 /**
  * BBS
