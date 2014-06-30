@@ -46,6 +46,9 @@ class AdminBbsController extends BaseController {
 			App::abort(404);
 		}
 
+		// Log this action against abuse
+		LogEntry::takeNote('log.bbs.post.delete', $post->author_id, $post->id);
+
 		// If the post had a known author, deduct him 2px of epeen
 		if($post->author_id != null) {
 			$user = User::find($post->author_id);
