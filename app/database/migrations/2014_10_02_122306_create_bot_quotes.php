@@ -14,7 +14,8 @@ class CreateBotQuotes extends Migration {
     {
         Schema::create('bot_quotes', function($table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
+            $table->string('category', 32);
+            $table->integer('user_id')->unsigned()->nullabe()->default(null);
             $table->text('message');
             $table->timestamps();
             $table->softDeletes();
